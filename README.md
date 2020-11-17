@@ -1,4 +1,4 @@
-# condensation
+# Condensation - No Database is more secured
 
 ![About Condensation](https://raw.githubusercontent.com/condensationdb/condensation/main/condensation-title.png)
 
@@ -6,5 +6,4 @@
 
 ## Main links
 
-http://github.com - automatic!
-[GitHub](http://github.com)
+[Condensation website](https://condensation.io)
