@@ -2,6 +2,8 @@
 
 ![About Condensation](https://raw.githubusercontent.com/condensationdb/condensation/main/condensation-title.png)
 
+## Security features
+
 ![Condensation security features](https://raw.githubusercontent.com/condensationdb/condensation/main/condensation-security.png)
 
 ## Main links
