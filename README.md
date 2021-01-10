@@ -69,8 +69,7 @@ We are currently building our contribution framework, if you are interested in c
 
 ## Thanks to our sponsors
 
-<img src="https://preview.condensation.io/assets/img/SPEI.png" alt="SPEI" height="120">
-<img src="https://preview.condensation.io/assets/img/Innosuisse.png" alt="Innosuisse" height="120">
+<img src="https://preview.condensation.io/assets/img/SPEI.png" alt="SPEI" height="120"><img src="https://preview.condensation.io/assets/img/Innosuisse.png" alt="Innosuisse" height="120">
 
 ## Get together
 
