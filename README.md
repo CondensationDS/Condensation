@@ -1,4 +1,4 @@
-## >>>> We just move our repo to an org and published the code [please star and follow the repositories out there](https://github.com/CondensationDB)<br>
+## >>>> We just moved our repo to an org and published the code [please star and follow the repositories out there](https://github.com/CondensationDB)<br>
 
 <p align="center">
   <br>
