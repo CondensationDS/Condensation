@@ -53,7 +53,7 @@ As objects can circulate and be stored freely, Condensation provides mechanics t
 
 ## Get started
 
-Condensation Java implementation is stable and PROD ready but we are still packaging it, preparing instructions for the installation, and building the first tutorials. The most advanced developers can already get into the code with the following link.<br>
+Condensation Java implementation is stable but we are still packaging it, preparing instructions for the installation, and building the first tutorials. The most advanced developers can already get into the code with the following link.<br>
 
 [Java implementation repository](https://github.com/CondensationDB/Condensation-java)
 
