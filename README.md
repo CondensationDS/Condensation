@@ -1,10 +1,7 @@
-## >>>> We just moved our repo to an org and published the code [please star and follow the repositories out there](https://github.com/CondensationDB)<br>
-
 <p align="center">
   <br>
   <br>
-  <img src="https://preview.condensation.io/assets/img/logo.svg" alt="Condensation" width="300">
-  <br>
+  <img src="https://preview.condensation.io/assets/img/condensation-long-icon.svg" alt="Condensation" width="460">
   <br>
 </p>
 
@@ -14,9 +11,16 @@
   with inherent end-to-end security
 </h1>
 
+<br>
+
 ## About
 Condensation enables to build modern applications while ensuring data ownership and security.
 It's a one stop open source project to match the next decades complex security challenges and to protect digital rights.
+
+**What you can build with**
+* Build any kind of app secured by design, with real end-to-end encryption.
+* Build collaborative tools such as google doc, but with control on the code and the privacy.
+* Build distributed systems where each user can store data on his sever while synchronizing with others.
 
 ## Motivation
 
@@ -38,14 +42,20 @@ The Condensation data system has been designed from the ground up to address thi
 
 Inspired by the blockchain system, the email system, and git versioning, Condensation's architecture is a unique solution to develop scalable and modern applications.
 
-**Condensation manages data locally**
+**Condensation manages data locally** <br>
 Compared to commonly centralized databases, Condensation writes and reads data directly on the user's device. No image of the data needs to be created to communicate with a data center.
 
-**Then, encrypted objects circulate through the network**
+**Then, encrypted objects circulate through the network** <br>
 Condensation does not need to decrypt data as it is the case for classic SQL and NoSQL databases. This erradicates the danger of data breaches. The data can circulate freely as objects are recognized by their address and not their content. The content stays encrypted until its received on the end user's device.
 
-**Finally, data is condensated on the user's device**
+**Finally, data is condensated on the user's device** <br>
 As objects can circulate and be stored freely, Condensation provides mechanics to reassemble and update the data when it arrives on the user's device.
+
+## Get started
+
+Condensation Java implementation is stable and PROD ready but we are still packaging it, preparing instructions for the installation, and building the first tutorials. The most advanced developers can already get into the code with the following link.<br>
+
+[Java implementation repository](https://github.com/CondensationDB/Condensation-java)
 
 
 ## Project roadmap
@@ -66,13 +76,11 @@ We are currently building our contribution framework, if you are interested in c
 ## Main links
 
 [Website](https://condensationDB.com)<br>
-[Documentation](https://docs.condensationDB.com)<br>
-[Source code](https://docs.condensationDB.com)<br>
+[Documentation](https://condensation.io)<br>
+[Java source code](https://github.com/CondensationDB/Condensation-java)<br>
 
 ## Thanks to our sponsors
 
 <img src="https://preview.condensation.io/assets/img/SPEI.png" alt="SPEI" height="120"><img src="https://preview.condensation.io/assets/img/Innosuisse.png" alt="Innosuisse" height="120">
-
-## Get together
-
+<br>
 We are actively developing Condensation, if you want to invest, to contribute or to develop a pilot please reach out at info@condensationDB.com
