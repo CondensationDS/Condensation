@@ -24,13 +24,13 @@ It's a one stop open source project to match the next decades complex security c
 
 ## Motivation
 
-The structure of today's file and database systems dates back to the 1970ties, when storage space was extremely scarce, and computers were few. These systems were therefore designed to run on a single machine, and sometimes on a single disk.
+The structure of today's file and database systems dates back to the 1970s, when storage space was extremely scarce, and computers were few. These systems were therefore designed to run on a single machine, and sometimes on a single disk.
 
 While both database and file systems have greatly evolved over time, their main structure has hardly changed. Database systems are based on tables with mutable records (rows), while file systems use a hierarchy of folders with mutable files inside. In both systems, data can be modified with little effort, and at any time. Data synchronization, however, is notoriously difficult and error-prone.
 
 In todays' connected world, data is used on different devices, or shared with other people. Hence, efficient data synchronization is key.
 
-Aside of file and database systems, revision control systems have been developed and used since the 1980ties. Some of them, like git or hq, are fully distributed, and do not require any central server whatsoever. Each user has his/her own version of the data, and can merge changes from other users. Such systems allow for efficient and provably correct data synchronization.
+Aside of file and database systems, revision control systems have been developed and used since the 1980s. Some of them, like git or hq, are fully distributed, and do not require any central server whatsoever. Each user has his/her own version of the data, and can merge changes from other users. Such systems allow for efficient and provably correct data synchronization.
 
 While they are great for source code management, current revision control systems are not suited as general purpose data systems. In order to benefit from such systems, the user needs to have a minimal understanding of branches, merging and conflict resolution, which is far beyond the knowledge of an average computer user. In addition, occasional merge conflicts are inevitable, and prevent such systems from being used in a transparent way.
 
@@ -62,7 +62,7 @@ Condensation Java implementation is stable but we are still packaging it, prepar
 
 - [x] Research and development of the conflict free merge
 - [x] Develop the messaging system
-- [x] Develop the end-to-end encrpytion
+- [x] Develop the end-to-end encryption
 - [x] Package and publish Java version (Jan. 2021)
 - [ ] Release the white paper (Feb. 2021)
 - [ ] Publish first pilot with Microcontroller integration (May. 2021)
