@@ -49,7 +49,7 @@ Compared to commonly centralized databases, Condensation writes and reads data d
 Condensation does not need to decrypt data as it is the case for classic SQL and NoSQL databases. This erradicates the danger of data breaches. The data can circulate freely as objects are recognized by their address and not their content. The content stays encrypted until its received on the end user's device.
 
 **Finally, data is condensated on the user's device** <br>
-As objects can circulate and be stored freely, Condensation provides mechanics to reassemble and update the data when it arrives on the user's device.
+As objects can circulate and be stored freely, Condensation provides mechanics to reassemble and update the data when it arrives on the user's device. There, Condensation can be used similarly to a document database with attributes but still with the flexibility to attach and manage objects like you want.
 
 ## Get started
 
@@ -57,6 +57,7 @@ Condensation Java implementation is stable but we are still packaging it, prepar
 
 [Java implementation repository](https://github.com/CondensationDB/Condensation-java)
 
+If you have a strong desire to contribute, please just get in touch at info@condensationDB.com and we can walk through the installation together.
 
 ## Project roadmap
 
@@ -71,7 +72,13 @@ Condensation Java implementation is stable but we are still packaging it, prepar
 
 ## Contribute
 
-We are currently building our contribution framework, if you are interested in contributing we can give you more details on the next priorities. You can get in touch at info@condensationDB.com
+**Raising awareness and educating about Condensation**
+The first thing we want is to educate on how innovative is Condensation to build solutions. Indeed, this new kind of database bridging the gap between mutable and immutable structures, has many benefits such as end-to-end encryption, multi-device synchronization, collaboration, offline-first, and much more we didn't yet described. To raise awareness about the project, producing educational material is critical. It can be articles, use cases, diagrams, advices and testimonials from your experience. We build this community to support your content, we will always do the best to enhance your positive impact on the project.
+
+**Contributing by porting the core**
+The priority is now to port the code to other systems as Condensation is mainly on the client side. For the immutable part of Condensation, specifications are now exhaustively described and we are available to guide you into each step. Are you interested in contributing? We can give you more details on the next priorities and connect you with the community. 
+
+You can get in touch at info@condensationDB.com.
 
 ## Main links
 
