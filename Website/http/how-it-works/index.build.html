@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<head>
+  <meta charset="utf-8">
+  <title>How it works | Condensation</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../assets/favicon/site.webmanifest">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The most secure database, to build whatever you need.">
+  <link href="../assets/css/loaders/loader-typing.css" rel="stylesheet" type="text/css" media="all">
+  <link href="../assets/css/theme.css" rel="stylesheet" type="text/css" media="all">
+  <link rel="preload" as="font" href="../assets/fonts/Inter-UI-upright.var.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" as="font" href="../assets/fonts/Inter-UI.var.woff2" type="font/woff2" crossorigin="anonymous">
+      
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-83THZHSP23"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-83THZHSP23');
+      </script>
+</head>
+
+<style>
+.descriptive-text {
+    color:rgba(0,0,0,0.3);
+    font-size:12px;
+    font-weight:700;
+}
+
+.illustration-text {
+    color:rgba(0,0,0,0.5);
+    font-size:15px;
+    font-weight:700;
+    padding:18px;
+    text-align:center;
+}
+
+#hash-sequence {
+    flex-grow:1;
+    width:168px;
+    background-color:var(--primary-light);
+    word-wrap: break-word;
+    font-size:12px;
+    color:rgba(255,255,255,0.6);
+    font-weight:500;
+    padding:24px;
+    transition: all 0.3s ease;
+}
+
+#hash-sequence-repeat {
+        flex-grow:1;
+        width:168px;
+        background-color:var(--primary-light);
+        word-wrap: break-word;
+        font-size:12px;
+        color:rgba(255,255,255,0.6);
+        font-weight:500;
+        padding:24px;
+        transition: all 0.3s ease;
+    }
+
+#byte-sequence {
+    flex-grow:1;
+    background-color:var(--primary);
+    position:relative;
+    font-size:12px;
+    color:rgba(255,255,255,0.6);
+    font-weight:500;
+    padding:24px;
+    white-space: pre;
+    transition: all 0.3s ease;
+}
+
+#encrypted-sequence {
+    flex-grow:1;
+    background-color:var(--primary);
+    position:relative;
+    font-size:12px;
+    color:rgba(255,255,255,0.6);
+    font-weight:500;
+    padding:24px;
+    white-space: pre;
+    transition: all 0.3s ease;
+}
+
+.hover-text {
+    color:var(--primary);
+}
+
+.hover-text:hover {
+    color:default;
+}
+
+.communication-graph {
+    display:flex;
+    position:relative;
+    height:42px;
+    justify-content:space-between;
+    padding:6px 60px;
+    align-items:center;
+}
+
+.communication-graph img {
+    height:42px;
+}
+
+.communication-title {
+    padding:12px 60px;
+    font-size:12px;
+    font-weight:500;
+    color:black;
+}
+
+.communication-line {
+    height:2px;
+    flex-grow:1;
+    background-color:rgba(0,0,0,0.3);
+    margin:0 12px;
+    opacity:0.3;
+}
+
+.countdown-container {
+    display:flex;
+    margin:0 -18px;
+}
+
+.countdown-container > div {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:18px;
+    width:84px;
+    color:white;
+}
+
+.countdown-container > div > div:first-child {
+    font-size:42px;
+    font-weight:500;
+}
+
+.countdown-container > div > div:last-child {
+    font-size:15px;
+    font-weight:300;
+}
+
+.object-small {
+    display:flex;
+    position:relative;
+}
+
+.object-small > div:first-child {
+    background-color:var(--primary);
+    height:30px;
+    width:45px;
+}
+
+.object-small > div:last-child {
+    background-color:var(--primary-light);
+    height:30px;
+    width:30px;
+}
+
+.object-padding {
+    margin:5px;
+}
+
+
+.item-centered {
+    background-color:#f6f6f6;
+    min-width:415px;
+    position:relative;
+    border-radius:6px;
+    margin-top:60px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.row-alignment {
+    align-items:flex-start;
+    overflow-x: hidden;
+}
+
+.blue-layer-button {
+    background-color:var(--primary);
+    transition: all 0.3s ease;
+    cursor:pointer;
+}
+
+.blue-layer-button:hover {
+    background-color:var(--primary-hover);
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 768px) {
+    .item-centered {
+    }
+}
+
+@media only screen and (max-width: 415px) {
+    .item-centered {
+        transform: scale(0.8);
+        transform-origin: left;
+    }
+}
+
+
+
+</style>
+
+<body style="position:relative; width:100vw;">
+
+
+    <div class="loader">
+      <div class="loading-animation"></div>
+    </div>
+
+   <div class="navbar-container">
+                  <nav class="navbar navbar-expand-lg justify-content-between navbar-light border-bottom-0 bg-white" data-sticky="top">
+                      <div class="container">
+                          <div class="col flex-fill px-0 d-flex justify-content-between">
+                              <a href="../"><img src="../assets/img/logo.svg" style="max-height:40px;" alt="Condensation"></a>
+                                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                                      <img class="icon navbar-toggler-open" src="../assets/img/icons/interface/menu.svg" alt="menu interface icon" data-inject-svg>
+                                          <img class="icon navbar-toggler-close" src="../assets/img/icons/interface/cross.svg" alt="cross interface icon" data-inject-svg>
+                                              </button>
+                                  </div>
+                          <div class="flex-fill"></div>
+                          <div class="collapse navbar-collapse" id="navbarNav">
+                              <ul class="navbar-nav">
+                                  <li class="nav-item">
+                                      <a href="../how-it-works" class="nav-link">How it works</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a href="../about-us" class="nav-link">Who we are</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a href="../newsroom" class="nav-link">What's new</a>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div class="collapse navbar-collapse justify-content-end px-0" style="white-space:nowrap;"><a id="banner-primary-button" href="https://github.com/condensationdb/condensation" class="btn btn-primary ml-lg-2 pl-2" target="_blank">
+                              <img class="icon pl-0" src="../assets/img/icons/social/github.svg" alt="github social icon" data-inject-svg>
+          View on GitHub</a>
+                          </div>
+                      </div>
+                  </nav>
+              </div>
+
+    <section class="bg-primary-3 header-inner p-0 jarallax position-relative o-hidden" data-overlay>
+      <div class="container py-0 layer-2">
+
+        <div class="row my-4 my-md-6 text-light text-center justify-content-center" data-aos="fade-up">
+          <div class="col-lg-8 col-xl-8">
+            <h1 class="display-4">An innovative architecture secure by design</h1>
+            <p class="lead">Inspired by the blockchain system, the email system, and git versioning, Condensation's architecture is a unique solution to develop scalable and modern applications.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="divider flip-x">
+        <img src="../assets/img/dividers/divider-5.svg" alt="graphical divider" data-inject-svg >
+      </div>
+    </section>
+
+
+    <section>
+        <div class="container pb-md-0 mb-4" data-aos="fade-up">
+            <div class="row text-center justify-content-center">
+                <div class="col-xl-10 col-lg-10 col-md-10">
+                    <div class="mb-4 h5">A shift of paradigm</div>
+                    <h2 class="display-4 mb-4">Condensation manages data locally</h2>
+                    <p class="lead">Compared to commonly centralized databases, Condensation writes and reads data directly on the user's device. No image of the data needs to be created to communicate with a data center.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mt-7" data-aos="fade-up">
+
+            <div class="row row-alignment" >
+
+                <div class="col-md">
+                    <div class="my-3">
+                        <h3 class="h1">Data is structured into trees</h3>
+                    </div>
+                    <p class="lead">Merkle trees are used to structure data allowing to retrieve or modify only part of the data once needed. The data is self organized depending on its size and its frequency of usage. A tree can be arbitrarily large, and may form a blockchain or other data structure. A basic tree consist of the following parts:
+                        <div id="tree-first-row" class="hover-text" style="margin-top:12px; font-weight:normal;">A piece of data referencing all children</div>
+                        <div id="tree-second-row" class="hover-text" style="margin-top:12px; font-weight:normal;">Commonly modified data</div>
+                        <div id="tree-third-row" class="hover-text" style="margin-top:12px; font-weight:normal;">Heavier objects storing more permanent data</div>
+                    </p>
+
+                </div>
+                <div class="col-md">
+                    <div class="item-centered" style="height:300px;">
+
+                        <div style="display:flex; flex-direction:column; position:relative; align-items:center; justify-content:center; margin-left:45px; margin-right:-45px;">
+
+                            <div id="tree-first-row-d" class="object-small" style="transition: all 0.3s ease;"><div></div><div></div></div>
+
+                            <div style="background-color:var(--primary-light); width:1px; height:18px; margin-left:45px;"></div>
+                            <div style="background-color:var(--primary-light); width:150px; height:1px; margin-left:45px;"></div>
+
+                            <div style="display:flex; width:150px; margin-left:45px;">
+                                <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                <div style="flex-grow:1;"></div>
+                                <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                            </div>
+
+                            <div id="tree-second-row-d" style="display:flex; margin-left:0px; transition: all 0.3s ease;">
+                                <div class="object-small"><div></div><div></div></div>
+                                <div style="width:75px;"></div>
+                                <div class="object-small"><div></div><div></div></div>
+                            </div>
+
+                            <div style="display:flex; width:150px; margin-left:45px;">
+                                <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                <div style="flex-grow:1;"></div>
+                                <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                            </div>
+
+                            <div style="display:flex; margin-right:45px;">
+                                <div style="background-color:var(--primary-light); width:120px; height:1px;"></div>
+                                <div style="width:119px;"></div>
+                                <div style="background-color:var(--primary-light); width:1px; height:1px;"></div>
+                            </div>
+
+                            <div style="display:flex; margin-right:45px;">
+                                <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                <div style="width:118px;"></div>
+                                <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                <div style="width:119px;"></div>
+                                <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                            </div>
+
+                            <div id="tree-third-row-d" style="display:flex; margin-right:90px; transition: all 0.3s ease;">
+                                <div class="object-small"><div></div><div></div></div>
+                                <div style="width:45px;"></div>
+                                <div class="object-small"><div></div><div></div></div>
+                                <div style="width:45px;"></div>
+                                <div class="object-small"><div></div><div></div></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="illustration-text">A tree of objects</div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container mt-7" data-aos="fade-up">
+                   <div class="row" style="align-items:center;">
+
+                       <div class="col-md">
+                           <div class="my-3">
+                               <h3 class="h1">Increments of data are saved as objects</h3>
+                           </div>
+                           <p class="lead">With Condensation <span id="byte-description" class="hover-text">raw data is written as a byte sequence</span> into <i>immutable objects</i> which are created and processed on the client. Each object is unique and identified by a unique address or a hash which is generated from the object content. The complete picture of the data is represented using <span id="hash-description" class="hover-text"> an address list pointing to other objects</span>.</p>
+
+                       </div>
+                       <div class="col-md">
+                           <div class="item-centered" style="height:300px;">
+
+                               <div style="display:flex; position:relative;">
+                                   <div id="byte-sequence"><div style="color:white; margin-bottom:12px;">Byte sequence</div>1110  0011  1010  0010  1010<br>1010  0010  1010  1110  0011<br>1111  1010  0011  1000  0010<br>0010  0000  1010  1110  1111<br>...</div>
+                                   <div id="hash-sequence">
+                                       <div style="color:white; margin-bottom:12px;">Address list</div>
+                                       bf691049538cf525a2a515b5b2aa5195aaaacb8a7b0d0c6176c7ab4556a7fbb7<br>
+                                       ...
+                                   </div>
+                               </div>
+
+                           </div>
+                           <div class="illustration-text">An object</div>
+
+                       </div>
+
+                   </div>
+               </div>
+
+    </section>
+
+    <section class="bg-primary-3 header-inner p-0 jarallax position-relative o-hidden text-light mt-7" data-overlay>
+
+
+           <div class="container mt-7 layer-2" data-aos="fade-up">
+
+               <div class="row my-4 text-light text-center justify-content-center" data-aos="fade-up">
+                   <div class="col-xl-10 col-lg-10 col-md-10">
+                       <h2 class="display-4">Then, encrypted objects circulate through the network</h2>
+                       <p class="lead">Condensation does not need to decrypt data to store it as it is the case for classic SQL and NoSQL databases. This eradicates the danger of data breaches. The data can circulate freely as objects are recognized by their address and not their content. The content stays encrypted until its received on the end user's device.</p>
+                   </div>
+               </div>
+
+           </div>
+
+
+           <div class="container mt-5" data-aos="fade-up">
+               <div class="row row-alignment" >
+
+                   <div class="col-md">
+                       <div class="my-3">
+                           <h3 class="h1">Objects can be distributed without constraints</h3>
+                       </div>
+                       <p class="lead">With Condensation, objects can be exchanged freely from one client to another, even without the need of a server. A direct communication is possible as the synchronization of data occurs on the client side. It allows to create fully distributed systems, where <i>servers are only used to pass the information or to store it</i>. Users can subscribe to different servers and still communicate with each other.</p>
+
+
+                   </div>
+                   <div class="col-md">
+
+                          <div class="item-centered" style="height:360px; align-items:stretch; flex-direction:column;">
+
+                               <div class="communication-title" style="margin-top:-12px;">Client to client</div>
+                               <div class="communication-graph">
+                                   <img src="../assets/img/cn-phone.svg">
+                                   <div class="communication-line"></div>
+                                   <img src="../assets/img/cn-phone.svg">
+                                   <div style="display:none; position:absolute; top:21px; left:138px;">
+                                       <div style="background-color:var(--primary); width:18px; height:12px;"></div>
+                                       <div style="background-color:var(--primary-light); width:12px; height:12px;"></div>
+                                   </div>
+                               </div>
+                               <div class="communication-title" style="margin-top:6px;">Centralized server</div>
+                               <div class="communication-graph">
+                                   <img src="../assets/img/cn-phone.svg">
+                                   <div class="communication-line"></div>
+                                   <img src="../assets/img/cn-server.svg">
+                                   <div class="communication-line"></div>
+                                   <img src="../assets/img/cn-phone.svg">
+                               </div>
+                               <div class="communication-title" style="margin-top:6px;">Multiple servers</div>
+                               <div class="communication-graph">
+                                   <img src="../assets/img/cn-phone.svg">
+                                   <div class="communication-line"></div>
+                                   <img src="../assets/img/cn-server.svg">
+                                   <div class="communication-line"></div>
+                                   <img src="../assets/img/cn-server.svg">
+                                   <div class="communication-line"></div>
+                                   <img src="../assets/img/cn-phone.svg">
+                               </div>
+                           </div>
+                           <div class="illustration-text" style="color:white;">A distributed system</div>
+
+                       </div>
+
+
+               </div>
+           </div>
+
+
+           <div class="container my-7" data-aos="fade-up">
+               <div class="row row-alignment" >
+
+                   <div class="col-md">
+                       <div class="my-3">
+                           <h3 class="h1">The data always stays encrypted outside of the device</h3>
+                       </div>
+                       <p class="lead">As the server never needs to decrypt the data to store it, the <i>data is never exposed to breaches</i>. Asymmetrical encryption is used to ensure only the intended receiver of the data can read it.</p>
+
+                   </div>
+
+                   <div class="col-md">
+
+                       <div class="item-centered" style="height:300px;">
+                           <div style="display:flex; position:relative;">
+                               <div id="encrypted-sequence"><div style="color:white; margin-bottom:12px;">Encrypted sequence</div>&marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;<br>&marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;<br>&marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;<br>&marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;  &marker;&marker;&marker;&marker;<br>...</div>
+                               <div id="hash-sequence-repeat">
+                                   <div style="color:white; margin-bottom:12px;">Hash list</div>
+                                   bf691049538cf525a2a515b5b2aa5195aaaacb8a7b0d0c6176c7ab4556a7fbb7<br>
+                                   ...
+                               </div>
+                           </div>
+                       </div>
+                       <div class="illustration-text" style="color:white;">An encrypted object</div>
+
+
+                   </div>
+
+               </div>
+           </div>
+
+    </section>
+
+    <section class="mb-0 pb-0">
+
+           <div class="container mt-5" data-aos="fade-up">
+               <div class="row text-center justify-content-center">
+                   <div class="col-xl-9 col-lg-9 col-md-9">
+                       <h2 class="display-4 mb-4">Finally, data is condensed on the user's device</h2>
+                       <p class="lead">As objects can circulate and be stored freely, Condensation provides mechanics to reassemble and update the data when it arrives on the user's device.</p>
+                   </div>
+               </div>
+           </div>
+
+           <div class="container mt-7" data-aos="fade-up">
+                      <div class="row row-alignment" >
+
+                          <div class="col-md">
+                              <div class="my-3">
+                                  <h3 class="h1">Objects are merged without conflict, using our union-forget algorithm</h3>
+                              </div>
+                              <p class="lead">When multiple versions of the data tree need to be synchronized, Condensation compares each object independently so that it can merge a version of the data with the relevant objects. It will keep the most recent ones, and the ones in common, so that no data is lost.</p>
+
+                          </div>
+                          <div class="col-md">
+
+                              <div class="item-centered" style="height:300px;">
+                                  <div style="display:flex; flex-direction:column; position:relative; align-items:center; justify-content:center; margin-left:45px; margin-right:-45px;">
+
+                                      <div class="object-small" style="transition: all 0.3s ease;"><div></div><div></div></div>
+
+                                      <div style="background-color:var(--primary-light); width:1px; height:18px; margin-left:45px;"></div>
+                                      <div style="background-color:var(--primary-light); width:150px; height:1px; margin-left:45px;"></div>
+
+                                      <div style="display:flex; width:150px; margin-left:45px;">
+                                          <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                          <div style="flex-grow:1;"></div>
+                                          <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                      </div>
+
+                                      <div style="display:flex; margin-left:0px; transition: all 0.3s ease;">
+                                          <div class="object-small"><div style="background-color:rgb(160,70,90);"></div><div style="background-color:rgb(210,100,90);"></div></div>
+                                          <div style="width:75px;"></div>
+                                          <div class="object-small"><div></div><div></div></div>
+                                      </div>
+
+                                      <div style="display:flex; width:150px; margin-left:45px;">
+                                          <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                          <div style="flex-grow:1;"></div>
+                                          <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                      </div>
+
+                                      <div style="display:flex; margin-right:45px;">
+                                          <div style="background-color:var(--primary-light); width:120px; height:1px;"></div>
+                                          <div style="width:119px;"></div>
+                                          <div style="background-color:var(--primary-light); width:1px; height:1px;"></div>
+                                      </div>
+
+                                      <div style="display:flex; margin-right:45px;">
+                                          <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                          <div style="width:118px;"></div>
+                                          <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                          <div style="width:119px;"></div>
+                                          <div style="background-color:var(--primary-light); width:1px; height:18px;"></div>
+                                      </div>
+
+                                      <div style="display:flex; margin-right:90px; transition: all 0.3s ease;">
+                                          <div class="object-small"><div></div><div></div></div>
+                                          <div style="width:45px;"></div>
+                                          <div class="object-small"><div></div><div></div></div>
+                                          <div style="width:45px;"></div>
+                                          <div class="object-small"><div></div><div></div></div>
+                                      </div>
+
+                                  </div>
+                              </div>
+                              <div class="illustration-text">Merge occuring in a tree of objects</div>
+
+                          </div>
+
+                      </div>
+                  </div>
+
+
+           <div class="container my-7" data-aos="fade-up">
+               <div class="row row-alignment" >
+
+                   <div class="col-md">
+                       <div class="my-3">
+                           <h3 class="h1">On the development side, applications are built using only a simple API</h3>
+                       </div>
+                       <p class="lead">Objects can be created, encrypted and managed through API calls. A small piece of code needs to be written to match your application's needs. Anything can be build as Condensation is very flexible and made for generic use cases.</p>
+
+                   </div>
+                   <div class="col-md" style="min-width:415px;">
+
+                       <div class="item-centered" style="height:300px;">
+                            <div style="display:flex; position:relative;">
+                                <p style="font-weight:500;">
+                                <span style="color:rgba(0,0,0,0.3);">// Example of creating an encrypted object</span><br>
+                                var <span style="color:var(--primary);">data</span> = <span style="color:rgba(0,0,0,0.3);">// Uint8Array</span><br>
+                                var <span style="color:var(--primary);">object</span> = <span style="color:var(--primary);">cn</span>.<span style="color:var(--cn-purple);">createObject</span>(<span style="color:var(--primary);">cn</span>.<span style="color:var(--primary);">emptyHeader</span>, <span style="color:var(--primary);">data</span>);<br>
+                                var <span style="color:var(--primary);">key</span> = <span style="color:var(--primary);">object</span>.<span style="color:var(--cn-purple);">encryptInPlace</span>();<br>
+                                var <span style="color:var(--primary);">hash</span> = <span style="color:var(--primary);">object</span>.<span style="color:var(--cn-purple);">calculateHash</span>();<br>
+                                var <span style="color:var(--primary);">reference</span> = <span style="color:var(--cn-purple);">new</span> <span style="color:var(--primary);">cn</span>.Reference(<span style="color:var(--primary);">hash</span>, <span style="color:var(--primary);">key</span>);
+                                </p>
+
+                            </div>
+                       </div>
+                       <div class="illustration-text">Condensation API</div>
+
+
+                   </div>
+
+               </div>
+           </div>
+
+           <div class=" blue-layer-button justify-content-center text-center py-7" onclick="window.location.href='../#subscribe-form';">
+
+                       <h2 style="color:white;">
+                           White paper is coming by the next week, <br>get all the details →
+                       </h2>
+           </div>
+
+    </section>
+
+
+    <footer class="pb-5 bg-primary-3 text-light">
+      <div class="container" style="flex-direction: column;">
+        <div class="row mb-4 justify-content-center">
+          <div class="col-auto">
+              <a href="../">
+                  <img src="../assets/img/logo-white.svg" alt="Condensation" class="icon icon-lg">
+              </a>
+          </div>
+        </div>
+        <div class="row justify-content-center text-center">
+          <div class="col-xl-10">
+    <small class="text-muted">Condensation &copy;2021 All Rights Reserved. <a href="mailto:info@condensationDB.com" class="hover-arrow">Get in touch</a></small>          </div>
+        </div>
+      </div>
+      <div style="height:60px;">
+      </div>
+    </footer>
+
+
+    <a href="#" class="btn back-to-top btn-primary btn-round" data-smooth-scroll data-aos="fade-up" data-aos-offset="2000" data-aos-mirror="true" data-aos-once="false">
+        <img class="icon" src="../assets/img/icons/theme/navigation/arrow-up.svg" alt="arrow-up icon" data-inject-svg>
+      </a>
+      <!-- Required vendor scripts (Do not remove) -->
+      <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+      <script type="text/javascript" src="../assets/js/popper.min.js"></script>
+      <script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+
+      <!-- Optional Vendor Scripts (Remove the plugin script here and comment initializer script out of index.js if site does not use that feature) -->
+
+      <!-- AOS (Animate On Scroll - animates elements into view while scrolling down) -->
+      <script type="text/javascript" src="../assets/js/aos.js"></script>
+      <!-- Clipboard (copies content from browser into OS clipboard) -->
+      <script type="text/javascript" src="../assets/js/clipboard.min.js"></script>
+      <!-- Fancybox (handles image and video lightbox and galleries) -->
+      <script type="text/javascript" src="../assets/js/jquery.fancybox.min.js"></script>
+      <!-- Flatpickr (calendar/date/time picker UI) -->
+      <script type="text/javascript" src="../assets/js/flatpickr.min.js"></script>
+      <!-- Flickity (handles touch enabled carousels and sliders) -->
+      <script type="text/javascript" src="../assets/js/flickity.pkgd.min.js"></script>
+      <!-- Ion rangeSlider (flexible and pretty range slider elements) -->
+      <script type="text/javascript" src="../assets/js/ion.rangeSlider.min.js"></script>
+      <!-- Isotope (masonry layouts and filtering) -->
+      <script type="text/javascript" src="../assets/js/isotope.pkgd.min.js"></script>
+      <!-- jarallax (parallax effect and video backgrounds) -->
+      <script type="text/javascript" src="../assets/js/jarallax.min.js"></script>
+      <script type="text/javascript" src="../assets/js/jarallax-video.min.js"></script>
+      <script type="text/javascript" src="../assets/js/jarallax-element.min.js"></script>
+      <!-- jQuery Countdown (displays countdown text to a specified date) -->
+      <script type="text/javascript" src="../assets/js/jquery.countdown.min.js"></script>
+      <!-- jQuery smartWizard facilitates steppable wizard content -->
+      <script type="text/javascript" src="../assets/js/jquery.smartWizard.min.js"></script>
+      <!-- Plyr (unified player for Video, Audio, Vimeo and Youtube) -->
+      <script type="text/javascript" src="../assets/js/plyr.polyfilled.min.js"></script>
+      <!-- Prism (displays formatted code boxes) -->
+      <script type="text/javascript" src="../assets/js/prism.js"></script>
+      <!-- ScrollMonitor (manages events for elements scrolling in and out of view) -->
+      <script type="text/javascript" src="../assets/js/scrollMonitor.js"></script>
+      <!-- Smooth scroll (animation to links in-page)-->
+      <script type="text/javascript" src="../assets/js/smooth-scroll.polyfills.min.js"></script>
+      <!-- SVGInjector (replaces img tags with SVG code to allow easy inclusion of SVGs with the benefit of inheriting colors and styles)-->
+      <script type="text/javascript" src="../assets/js/svg-injector.umd.production.js"></script>
+      <!-- TwitterFetcher (displays a feed of tweets from a specified account)-->
+      <script type="text/javascript" src="../assets/js/twitterFetcher_min.js"></script>
+      <!-- Typed text (animated typing effect)-->
+      <script type="text/javascript" src="../assets/js/typed.min.js"></script>
+      <!-- Required theme scripts (Do not remove) -->
+      <script type="text/javascript" src="../assets/js/theme.js"></script>
+      <!-- Removes page load animation when window is finished loading -->
+      <script type="text/javascript">
+        window.addEventListener("load", function () {    document.querySelector('body').classList.add('loaded');  });
+
+
+
+      </script>
+
+    <script>
+        document.getElementById("byte-description").addEventListener("mouseenter", function() {
+            document.getElementById("hash-sequence").style.opacity = 0.3;
+        });
+
+        document.getElementById("byte-description").addEventListener("mouseleave", function() {
+            document.getElementById("hash-sequence").style.opacity = 1;
+        });
+
+        document.getElementById("hash-description").addEventListener("mouseenter", function() {
+            document.getElementById("byte-sequence").style.opacity = 0.3;
+        });
+
+        document.getElementById("hash-description").addEventListener("mouseleave", function() {
+            document.getElementById("byte-sequence").style.opacity = 1;
+        });
+
+        document.getElementById("tree-first-row").addEventListener("mouseenter", function() {
+            document.getElementById("tree-second-row").style.opacity = 0.3;
+            document.getElementById("tree-third-row").style.opacity = 0.3;
+            document.getElementById("tree-second-row-d").style.opacity = 0.3;
+            document.getElementById("tree-third-row-d").style.opacity = 0.3;
+        });
+
+        document.getElementById("tree-first-row").addEventListener("mouseleave", function() {
+            document.getElementById("tree-second-row").style.opacity = 1;
+            document.getElementById("tree-third-row").style.opacity = 1;
+            document.getElementById("tree-second-row-d").style.opacity = 1;
+            document.getElementById("tree-third-row-d").style.opacity = 1;
+        });
+
+        document.getElementById("tree-second-row").addEventListener("mouseenter", function() {
+            document.getElementById("tree-first-row").style.opacity = 0.3;
+            document.getElementById("tree-third-row").style.opacity = 0.3;
+            document.getElementById("tree-first-row-d").style.opacity = 0.3;
+            document.getElementById("tree-third-row-d").style.opacity = 0.3;
+        });
+
+        document.getElementById("tree-second-row").addEventListener("mouseleave", function() {
+            document.getElementById("tree-first-row").style.opacity = 1;
+            document.getElementById("tree-third-row").style.opacity = 1;
+            document.getElementById("tree-first-row-d").style.opacity = 1;
+            document.getElementById("tree-third-row-d").style.opacity = 1;
+        });
+
+        document.getElementById("tree-third-row").addEventListener("mouseenter", function() {
+            document.getElementById("tree-second-row").style.opacity = 0.3;
+            document.getElementById("tree-first-row").style.opacity = 0.3;
+            document.getElementById("tree-second-row-d").style.opacity = 0.3;
+            document.getElementById("tree-first-row-d").style.opacity = 0.3;
+        });
+
+        document.getElementById("tree-third-row").addEventListener("mouseleave", function() {
+            document.getElementById("tree-second-row").style.opacity = 1;
+            document.getElementById("tree-first-row").style.opacity = 1;
+            document.getElementById("tree-second-row-d").style.opacity = 1;
+            document.getElementById("tree-first-row-d").style.opacity = 1;
+        });
+
+    document.getElementById('banner-primary-button').onclick = function(event) {
+        /*ga('send', 'event', {
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'github'
+        });*/
+    }
+    
+    </script>
+
+</body>
+</html>
