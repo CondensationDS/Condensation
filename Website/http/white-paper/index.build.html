@@ -199,7 +199,9 @@ white-space:normal;
     </div>
     
     <section class="bg-primary-3 has-divider text-light">
-        <div style="background-color:var(--primary); text-align:center; font-weight:bold; padding:10px;">Part 1 online, get notified for part 2</div>
+        <div style="background-color:var(--primary); text-align:center; font-weight:bold; padding:10px;">
+            <a href="../#subscribe-form" class="hover-arrow">v0 online, get notified for technical specification release.</a>
+        </div>
           <div class="container text-center pb-md-0">
             <div class="row justify-content-center text-center mb-6">
               <div class="col-xl-12 col-lg-12 col-md-12">
@@ -229,8 +231,10 @@ white-space:normal;
                   <img id="cloud-1" src="../assets/img/cloud.svg" alt="Cloud" class="rounded" style="position:absolute; top:138px; right:380px;  width:240px; transition: all 0.8s ease-in-out;">
                   <img id="cloud-2" src="../assets/img/cloud.svg" alt="Cloud" class="rounded" style="position:absolute; top:138px; right:380px;  width:240px; opacity:0; transition: all 0.8s ease-in-out;">
 
-                  <img id="phone-1" src="../assets/img/phone-white.svg" alt="Cloud" class="rounded" style="position:absolute; bottom:60px; left:250px; width:48px; transition: all 0.3s ease-in-out;">
-                  <img id="phone-2" src="../assets/img/phone-white.svg" alt="Cloud" class="rounded" style="position:absolute; bottom:60px; right:250px; width:48px; transition: all 0.3s ease-in-out;">
+                  <img id="phone-1" src="../assets/img/phone-white.svg" alt="Phone" class="rounded" style="position:absolute; bottom:60px; left:250px; width:48px; transition: all 0.3s ease-in-out;">
+                  <img id="phone-2" src="../assets/img/phone-white.svg" alt="Phone" class="rounded" style="position:absolute; bottom:60px; right:250px; width:48px; transition: all 0.3s ease-in-out;">
+                      
+                  <img id="enveloppe" src="../assets/img/enveloppe.svg" alt="Enveloppe" style="position:absolute; bottom:90px; left:320px;  width:40px; opacity:0; transition: all 0.8s ease-in-out;">
                 
                 <img id="doc-1" src="../assets/img/doc-a.svg" alt="Document">
                 <img id="doc-2" src="../assets/img/doc-b.svg" alt="Document">
@@ -259,7 +263,7 @@ white-space:normal;
                 <div id="doc-comment-6" style="position:absolute; bottom:224px; left:40px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
                     2. The objects are stored encrypted into user A's desired server, they remain available there.
                 </div>
-                <div id="doc-comment-7" style="position:absolute; bottom:54px; left:360px; width:280px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
+                <div id="doc-comment-7" style="position:absolute; bottom:20px; left:360px; width:280px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
                     3. Actor A send a message to User B, telling him to pull the data from his server.
                 </div>
                 <div id="doc-comment-8" style="position:absolute; bottom:54px; left:780px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
@@ -299,6 +303,7 @@ white-space:normal;
                     var phone2 = document.getElementById('phone-2');
                     var block1 = document.getElementById('block-1');
                     var block2 = document.getElementById('block-2');
+                    var enveloppe = document.getElementById('enveloppe');
 
                     
                     
@@ -449,8 +454,8 @@ white-space:normal;
                     }, 36800);
                     
                     setTimeout(function(){
-
-                        
+                        enveloppe.style.opacity = '1';
+                        enveloppe.style.left = '650px';
                         
                         docComment7.style.marginBottom = '0px';
                         docComment7.style.opacity = '1';
@@ -476,6 +481,7 @@ white-space:normal;
                     }, 41800);
                     
                     setTimeout(function(){
+                        enveloppe.style.opacity = '0';
                         docComment8.style.opacity = '0';
                     }, 44800);
                     
@@ -631,7 +637,7 @@ white-space:normal;
                     </p>
                     
                     
-                    <h3 class="my-4">The evolution of architectures from online to offline and condensed systems.</h3>
+                    <h3 class="my-4">The evolution of architectures from online to offline and serverless systems.</h3>
                     
                     
                     <p>
@@ -778,356 +784,56 @@ white-space:normal;
                 <p>
                 In the following sections, first the data structure is technically described to explain how Condensation transform a document into an immutable merkle tree. Next, to better understand how Condensation manage securely data on the network, the flow of the data through a decentralized network will be described.
                 </p>
-                            
-                            
-                            
-                <h2 class="my-5">Condensation data structure</h2>
-                
-                
-                
-                
-                <p>Condensation relies on conflict-free merge functions to synchronize data. Originating in <a href="https://en.wikipedia.org/wiki/Semilattice">semilattice</a> theory, such functions can merge different versions of some data without user intervention. Synchronization always succeeds without conflicts, and retains transactions.</p>
-                
-                <p>Data is stored as <a href="https://en.wikipedia.org/wiki/Merkle_tree">hash trees</a> of immutable objects. Change detection – the basis of efficient synchronization – requires logarithmic time only, and is therefore much faster than traditional file or database systems. Data sets with millions of entries can be compared and merged swiftly.</p>
-                
-                    <h3 class="my-4">Immutable object</h3>
-                    
-                    <p>With Condensation, data is stored as trees of objects. An <a href="/serialization/object/">object</a> consists of a list of hashes pointing to other objects, and a sequence of bytes:</p>
-                    <div class="hscroll indent"><svg xmlns="http://www.w3.org/2000/svg" width="560" height="58" version="1.1">
-                      <g>
-                        <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 420,51.5 H 560"></path>
-                        <rect style="fill:#39812f" width="40" height="40" x="0" y="0"></rect>
-                        <rect y="0" x="40" height="40" width="200" style="fill:#48a43c"></rect>
-                        <rect style="fill:#6bc55f" width="320" height="40" x="240" y="0"></rect>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px" x="9" y="31" id="text3882"><tspan id="tspan3884" x="9" y="31">H</tspan></text>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px" x="249" y="31" id="text3890"><tspan id="tspan3892" x="249" y="31">Data (byte sequence)</tspan></text>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px" x="49" y="31" id="text3886"><tspan id="tspan3888" x="49" y="31">Hash list (H ⨯ 32 bytes)</tspan></text>
-                        <text id="text4493" y="55" x="280" style=";fill:#000000;font-family:'Source Sans Pro';font-size:13px;text-align:center;text-anchor:middle" xml:space="preserve"><tspan y="55" x="280" id="tspan4491">typically 2 KiB to 20 MiB, theoretically up to 2⁶⁴ bytes</tspan></text>
-                        <path d="M 0.5,46 V 56" style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                        <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 559.5,46 V 56"></path>
-                        <path d="M 0,51.5 H 140" style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      </g>
-                    </svg></div>
-                    
-                    <p><i>H</i> denotes the number of hashes preceding the data. The data part often holds a <a href="/serialization/record/">record</a>, and is usually encrypted.</p>
-                    
-                    <p>Objects are identified by their SHA-256 hash (32 bytes):</p>
-                    
-                    <div class="hscroll indent"><svg xmlns="http://www.w3.org/2000/svg" width="352" height="20" version="1.1">
-                      <g>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;line-height:1;text-align:start;text-anchor:start" x="0" y="16" id="text3057"><tspan id="tspan3059" x="0" y="16">Object hash ⇐ <tspan style="fill:#9549db" id="tspan4175">SHA-256 of </tspan></tspan></text>
-                        <rect style="fill:#6bc55f" width="90" height="20" x="262" y="0"></rect>
-                        <rect y="0" x="222" height="20" width="40" style="fill:#48a43c"></rect>
-                        <rect style="fill:#39812f" width="20" height="20" x="202" y="0"></rect>
-                      </g>
-                    </svg></div>
-                    
-                    <p>Objects are inherently <a href="/notes/mutability/">immutable</a>. Changing an object's content yields a different hash, and therefore makes it a different object.</p>
-
-                    <h3 class="my-4">An immutable tree structure</h3>
-                    
-                        <p>Through the hash list, an object may span a <a href="/serialization/tree/">tree</a>:</p>
-                        <p>
-                        <b>[Insert self made tree from how it works]</b>
-                        </p>
-                        <p>Trees can be arbitrarily large, and may form <a href="/serialization/tree/#blockchain">blockchains</a>, binary search trees, or other data structures.</p>
-                        
-                        <p>Naturally, the object hash also serves as identifier for the tree it spans.</p>
-                        
-                    <h3 class="my-4">Modifying data and reusing objects</h3>
-                
-                
-                        <p>Since trees are immutable, they cannot be modified directly. To modify data, a new tree is derived from the current tree:</p>
-                        
-                        <div class="hscroll indent"><svg xmlns="http://www.w3.org/2000/svg" width="430" height="210" version="1.1">
-                          <defs>
-                        <marker id="arrow000000" refX="0" refY="0" orient="auto" style="overflow:visible">
-                          <path style="fill:#000000" d="M -6,3 2,0 -6,-3 -5,0 Z"></path>
-                        </marker>
-                        </defs>
-                          <g>
-                            <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:13px" x="94" y="24" id="text4520"><tspan id="tspan4518" x="94" y="24">3ebfda...</tspan></text>
-                            <text id="text4524" y="24" x="374" style=";fill:#000000;font-family:'Source Sans Pro';font-size:13px" xml:space="preserve"><tspan y="24" x="374" id="tspan4522">513289...</tspan></text>
-                            <rect style="fill:#6bc55f" width="30" height="30" x="60" y="0"></rect>
-                            <rect y="60" x="60" height="30" width="30" style="fill:#6bc55f"></rect>
-                            <path d="M 75,36 V 52" style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                            <rect style="fill:#6bc55f" width="30" height="30" x="20" y="120"></rect>
-                            <rect y="120" x="100" height="30" width="30" style="fill:#6bc55f"></rect>
-                            <rect y="180" x="0" height="30" width="30" style="fill:#6bc55f"></rect>
-                            <rect style="fill:#6bc55f" width="30" height="30" x="40" y="180"></rect>
-                            <path style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 65,96 53,112"></path>
-                            <path style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 85,96 10,16"></path>
-                            <path d="m 27,156 -8,16" style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                            <path d="m 43,156 8,16" style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                            <rect style="fill:#6bc55f" width="30" height="30" x="100" y="180"></rect>
-                            <path style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 115,156 v 16"></path>
-                            <rect y="0" x="340" height="30" width="30" style="fill:#39812f"></rect>
-                            <rect style="fill:#39812f" width="30" height="30" x="340" y="60"></rect>
-                            <path style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 355,36 V 52"></path>
-                            <rect y="120" x="300" height="30" width="30" style="fill:#6bc55f"></rect>
-                            <rect style="fill:#39812f" width="30" height="30" x="380" y="120"></rect>
-                            <rect style="fill:#6bc55f" width="30" height="30" x="280" y="180"></rect>
-                            <rect y="180" x="320" height="30" width="30" style="fill:#6bc55f"></rect>
-                            <path d="m 345,96 -12,16" style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                            <path d="m 365,96 10,16" style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                            <path style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 307,156 -8,16"></path>
-                            <path style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 323,156 8,16"></path>
-                            <path d="m 135,125 25,-13" style="fill:none;stroke:#000000;stroke-dasharray:1, 1;stroke-dashoffset:0;stroke-linecap:butt;stroke-miterlimit:4;stroke-width:1"></path>
-                            <rect y="180" x="380" height="30" width="30" style="fill:#6bc55f"></rect>
-                            <path d="m 395,156 v 16" style="fill:none;marker-end:url(#arrow000000);stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                            <path style="fill:#ff0000" d="m 179.57119,110.10328 -8.58525,-1.64278 -4.52383,7.47931 -1.09061,-8.6727 -8.51119,-1.99118 7.91122,-3.71724 -0.73638,-8.709934 5.98,6.375319 8.05609,-3.391855 -4.21537,7.65741 z"></path>
-                            <path d="m 406.57119,137.37123 -6.14884,-1.17658 -3.24001,5.35676 -0.7811,-6.21147 -6.0958,-1.4261 5.66609,-2.66233 -0.52741,-6.23814 4.28294,4.56607 5.76985,-2.42928 -3.01909,5.48431 z" style="fill:#ffffff"></path>
-                          </g>
-                        </svg></div>
-                        
-                        <p><b>[to be updated, too hard to understand for someone non familiar]</b></p>
-                        
-                        <p>If the tree is structured wisely, a large part of the old tree's data can be reused in the new tree. This yields efficient data modification, and efficient versioning.</p>
-                        
-                        <p>Several modifications can be applied at the same time, leading to the equivalent of a database <a href="/notes/transactions/">transaction</a>.</p>
-
-                
-                <h3 class="my-4">A simple document</h3>
-                
-                <p>
-                Condensation materialize a document structured with nodes and attributes, each entry can link to an immutable object or directly contain information. Moreoever, each entry has a timestamp which has a critical role for the merge of data later on.
-                </p>
-                
-                <figure>
-                  <div style="width:1000px !important; max-width:auto !important; height:600px; background-color:var(--primary); border-radius:12px; display:inline-block; z-index:100; color:white;">
-                      Mutable document with attributes and timestamps vs Immutable objects
-                      
-                      <img style="width:700px; height:auto; margin-top:100px;" src="../assets/img/example5.png" alt="Document">
-
+                                            
+                </article>
+              
+                                      
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              
+              <section style="margin-top:30px; text-align:center;">
+                  
+                  <div class="ph-5 text-light" style="padding:90px 20vw; background-color:var(--primary);">
+                      <h2>Data structure technical specifications</h2>
+                      Learn more about how Condensation transform a database document into an immutable Merkle tree.<br><br>
+                      <a href="https://condensation.io/overview/objects/" class="hover-arrow">coming soon, first notes available here</a>
                       
                   </div>
-                  <figcaption>Mutable document with attributes and timestamps vs Immutable objects</figcaption>
-                </figure>
-                
-                <h3>Condensating a document into a merkle tree</h3>
-                
-                <p>
-                To be able to send the data with simplicity and efficiency, Condensation transforms the document a merkle tree with immutable objects. The tree has the following structure: There is a root element which reference to multiple direct children objects. These objects contains all the history of changes of the document entries. [Figure to be inserted with an objects containing a list of entries]
-                </p>
-                
-                <p>
-                The objects containing the history of entries respect a logarithmic size. The oldest object is the biggest containing the less recent changes in the document. Then the following object will have maximum a factor (e.g. half) of the size of the sibling object. In this way, most of the merkle tree can be edited while reusing most of its structure. Moreover, only the last edited object, and so the smaller one, need to be sent and read by the receiver to merge the data.
-                    [Figure to be inserted with a tree and increasing number of entries behing updated -> show a number on objects]
-                </p>
-                
-                <p>
-                When the factor is exceeding, Condensation simply rewrite all the objects, and removes the double entries.
-                </p>
+                  
+                  <div class="ph-5 text-light" style="margin-top:30px; padding:90px 20vw; background-color:var(--primary-2);">
+                      <h2>Data flow technical specifications coming soon</h2>
+                      Learn more about how Condensation send data. From creating an actor with his key pairs, creating a store, and passing data using envelopes.<br><br>
+                      <a href="https://condensation.io/overview/actors/" class="hover-arrow">coming soon, first notes available here</a>
+                  </div>
+                  
+                  <div style="text-align:center; margin-top:90px;">
+                      <a href="../#subscribe-form" class="h2 hover-arrow">Technical specifications are coming by the next weeks, <br>subscribe to get notified</a>
+                  </div>
+                  
+              </section>
+              
 
-                <h2>Condensation is end-to-end encrypted and fully distributed.</h2>
-                
-                <p style="padding:10px; background-color:rgba(0,0,255,0.2);">This part is still under construction, you can have a brief overview with the short summary below.</p>
-                
-                <p>Condensation is <a href="https://en.wikipedia.org/wiki/Distributed_computing">distributed</a>. Data can be synchronized across devices whenever they are connected. Mobile devices may communicate through intermediate servers, but no central server is needed.</p>
-                
-                
-                
-                <h2 class="mt-5">PART 2 -> Sending data (creating an actor with his key pairs, creating a store, passing data with envelopes)</h2>
-                    <div style="display:none;">
-                    <h3>Stores</h3>
-                    
-                    <p>[Explain the advantages of using stores, maybe this should be briefly recalled into the intro even if its in the first animation]</p>
-                    
-                    <p>Objects and accounts are kept on a <a href="/stores/store/">Condensation store</a>:</p>
-                    
-                    <div class="hscroll"><svg xmlns="http://www.w3.org/2000/svg" width="600" height="240" version="1.1">
-                      <defs>
-                        <marker id="arrowA000000" refX="0" refY="0" orient="auto" style="overflow:visible">
-                          <path style="fill:#000000" d="M -6,2.5 2,0 -6,-2.5 -5,0 Z"></path>
-                        </marker>
-                      </defs>
-                      <g>
-                        <rect style="fill:#3f8de5" width="140" height="140" x="440" y="40"></rect>
-                        <rect y="1" x="1" height="198" width="598" style="fill:none;stroke:#000000;stroke-dasharray:3, 3;stroke-width:2" rx="10"></rect>
-                        <rect y="40" x="20" height="140" width="400" style="fill:#6bc55f"></rect>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;text-align:center;text-anchor:middle" x="151" y="230" id="text4824"><tspan id="tspan4826" x="151" y="230">put object</tspan></text>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;text-align:center;text-anchor:middle" x="271" y="230" id="text4828"><tspan id="tspan4830" x="271" y="230">get object</tspan></text>
-                        <rect style="fill:#48a43c" width="20" height="20" x="30" y="80"></rect>
-                        <rect y="80" x="60" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="90" y="80"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="120" y="80"></rect>
-                        <rect y="110" x="90" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="30" y="50"></rect>
-                        <rect y="50" x="60" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="90" y="50"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="120" y="50"></rect>
-                        <text id="text3113" y="230" x="560" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;text-align:center;text-anchor:middle" xml:space="preserve"><tspan y="230" x="560" id="tspan3115">list</tspan></text>
-                        <text id="text3117" y="230" x="460" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;text-align:center;text-anchor:middle" xml:space="preserve"><tspan y="230" x="460" id="tspan3119">add</tspan></text>
-                        <text xml:space="preserve" style=";fill:#48a43c;font-family:'Source Sans Pro';font-size:18px;text-align:center;text-anchor:middle" x="130" y="121" id="text3151"><tspan id="tspan3153" x="130" y="121">...</tspan></text>
-                        <rect style="fill:#48a43c" width="20" height="20" x="150" y="50"></rect>
-                        <rect y="50" x="180" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect y="50" x="210" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect y="80" x="150" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="180" y="80"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="210" y="80"></rect>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;text-align:center;text-anchor:middle" x="510" y="230" id="text3055"><tspan id="tspan3057" x="510" y="230">remove</tspan></text>
-                        <rect y="80" x="240" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="270" y="80"></rect>
-                        <rect y="80" x="300" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect y="80" x="330" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect y="50" x="240" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="270" y="50"></rect>
-                        <rect y="50" x="300" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect y="50" x="330" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect y="50" x="360" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="390" y="50"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="360" y="80"></rect>
-                        <rect y="80" x="390" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect y="110" x="30" height="20" width="20" style="fill:#48a43c"></rect>
-                        <rect style="fill:#48a43c" width="20" height="20" x="60" y="110"></rect>
-                        <text id="text917" y="30" x="20" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;font-weight:bold;text-align:start;text-anchor:start" xml:space="preserve"><tspan y="30" x="20" id="tspan915">Objects</tspan></text>
-                        <text xml:space="preserve" style=";fill:#000000;font-family:'Source Sans Pro';font-size:18px;font-weight:bold;text-align:start;text-anchor:start" x="440" y="30" id="text923"><tspan id="tspan921" x="440" y="30">Accounts</tspan></text>
-                        <rect style="fill:#ffffff" width="40" height="12" x="446" y="46"></rect>
-                        <rect y="46" x="490" height="12" width="40" style="fill:#ffffff"></rect>
-                        <rect style="fill:#ffffff" width="40" height="12" x="534" y="46"></rect>
-                        <text id="text957" y="157" x="510" style=";fill:#ffffff;font-family:'Source Sans Pro';font-size:18px;text-align:center;text-anchor:middle" xml:space="preserve"><tspan y="157" x="510" id="tspan955">...</tspan></text>
-                        <rect y="50" x="450" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="494" y="50"></rect>
-                        <rect y="50" x="538" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="544" y="50"></rect>
-                        <rect y="50" x="550" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="556" y="50"></rect>
-                        <rect y="66" x="446" height="12" width="40" style="fill:#ffffff"></rect>
-                        <rect style="fill:#ffffff" width="40" height="12" x="490" y="66"></rect>
-                        <rect y="66" x="534" height="12" width="40" style="fill:#ffffff"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="450" y="70"></rect>
-                        <rect y="70" x="494" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="538" y="70"></rect>
-                        <rect y="70" x="544" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#ffffff" width="40" height="12" x="446" y="86"></rect>
-                        <rect y="86" x="490" height="12" width="40" style="fill:#ffffff"></rect>
-                        <rect style="fill:#ffffff" width="40" height="12" x="534" y="86"></rect>
-                        <rect y="106" x="446" height="12" width="40" style="fill:#ffffff"></rect>
-                        <rect style="fill:#ffffff" width="40" height="12" x="490" y="106"></rect>
-                        <rect y="106" x="534" height="12" width="40" style="fill:#ffffff"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="450" y="110"></rect>
-                        <rect y="110" x="494" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="538" y="110"></rect>
-                        <rect y="110" x="544" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="550" y="110"></rect>
-                        <rect y="110" x="556" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="562" y="110"></rect>
-                        <rect y="90" x="494" height="4" width="4" style="fill:#333333"></rect>
-                        <path d="m 265,187 5,5 5,-5 v 18 l -5,5 -5,-5 z" style="fill:#000000"></path>
-                        <path style="fill:#000000" d="m 145,210 5,-5 5,5 v -18 l -5,-5 -5,5 z"></path>
-                        <path d="m 455,210 5,-5 5,5 v -18 l -5,-5 -5,5 z" style="fill:#000000"></path>
-                        <path style="fill:#000000" d="m 505,210 5,-5 5,5 v -18 l -5,-5 -5,5 z"></path>
-                        <path style="fill:#000000" d="m 555,187 5,5 5,-5 v 18 l -5,5 -5,-5 z"></path>
-                        <rect style="fill:#ffffff" width="40" height="12" x="446" y="126"></rect>
-                        <rect y="126" x="490" height="12" width="40" style="fill:#ffffff"></rect>
-                        <rect style="fill:#ffffff" width="40" height="12" x="534" y="126"></rect>
-                        <rect y="130" x="450" height="4" width="4" style="fill:#333333"></rect>
-                        <rect style="fill:#333333" width="4" height="4" x="494" y="130"></rect>
-                      </g>
-                    </svg></div>
-                    
-                    <p>The objects make up the bulk of the data, and are organized as hash table. The account list has a slightly more sophisticated structure, but only deals with 32-byte hashes.</p>
-                    
-                    <p>A Condensation store can be accessed through <a href="/stores/store/">5 functions</a>:</p>
-                    
-                    <ul>
-                        <li>get an object</li>
-                        <li>put an object</li>
-                        <li>list a box</li>
-                        <li>add a hash (or envelope) to a box</li>
-                        <li>remove a hash from a box</li>
-                    </ul>
 
-                    <p>The store may be running on top of a raw disk, a file system, a database, or a large scale storage system.</p>
-                    
-                    <h3>Actors or accounts</h3>
-                    Show that you should create an actor for a user... which has a specific structure...
-                    
-                    
-                    <p>Remembering a tree hash is enough to refer to an arbitrary amount of data. Hence – besides storing objects – an actor (user) just needs to manage a few hashes to store, publish, and share data. For that, each actor owns an account with three boxes. Each box keeps a set of hashes:</p>
-                    
-                    <div class="hscroll indent"><svg xmlns="http://www.w3.org/2000/svg" width="470" height="205" version="1.1">
-                      <g>
-                        <rect style="fill:#3f8de5" width="150" height="40" x="0" y="0"></rect>
-                        <text xml:space="preserve" style=";fill:#ffffff;font-family:'Source Sans Pro';font-size:18px;text-align:start;text-anchor:start;" x="12" y="27" id="text886"><tspan x="12" y="27" id="tspan890">public box</tspan></text>
-                        <rect y="0" x="160" height="40" width="150" style="fill:#3f8de5"></rect>
-                        <rect style="fill:#3f8de5" width="150" height="40" x="320" y="0"></rect>
-                        <text id="text4515" y="27" x="172" style=";fill:#ffffff;font-family:'Source Sans Pro';font-size:18px;text-align:start;text-anchor:start;" xml:space="preserve"><tspan id="tspan4513" y="27" x="172">private box</tspan></text>
-                        <text xml:space="preserve" style="font-size:18px;font-family:'Source Sans Pro';text-align:start;text-anchor:start;fill:#ffffff" x="332" y="27" id="text4519"><tspan x="332" y="27" id="tspan4517">message box</tspan></text>
-                      </g>
-                      <path d="M 27.5,45 V 65" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="20" y="70"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 27.5,90 v 15"></path>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 187.5,45 V 65"></path>
-                      <rect y="70" x="180" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="170" y="150"></rect>
-                      <path d="m 183.5,130 -4,15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect y="150" x="190" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 191.5,130 4,15"></path>
-                      <path d="M 347.5,45 V 65" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="340" y="70"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 367.5,45 V 65"></path>
-                      <rect y="70" x="360" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="410" y="150"></rect>
-                      <path d="m 423.5,130 -4,15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect y="150" x="430" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 431.5,130 4,15"></path>
-                      <rect y="110" x="20" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="10" y="150"></rect>
-                      <path d="m 23.5,130 -4,15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect y="150" x="30" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 31.5,130 4,15"></path>
-                      <rect y="190" x="170" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 189.5,170 -8,15"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="210" y="190"></rect>
-                      <path d="m 205.5,170 8,15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <path d="m 197.5,170 v 15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="190" y="190"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 427.5,45 V 65"></path>
-                      <rect y="70" x="420" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path d="m 427.5,90 v 15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="420" y="110"></rect>
-                      <path d="m 187.5,90 v 15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="180" y="110"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 367.5,90 v 15"></path>
-                      <rect y="110" x="360" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path d="m 347.5,90 v 15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="340" y="110"></rect>
-                      <path d="M 387.5,45 V 65" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="380" y="70"></rect>
-                      <path d="m 387.5,90 v 15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="380" y="110"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="M 407.5,45 V 65"></path>
-                      <rect y="70" x="400" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px" d="m 407.5,90 v 15"></path>
-                      <rect y="110" x="400" height="15" width="15" style="fill:#6bc55f"></rect>
-                      <path d="m 367.5,130 v 15" style="fill:none;stroke:#000000;stroke-linecap:butt;stroke-width:1px"></path>
-                      <rect style="fill:#6bc55f" width="15" height="15" x="360" y="150"></rect>
-                    </svg></div>
-                    
-                    <ul>
-                        <li>The <b>public box</b> points to the actor's <a href="/actors/public-card/">public information</a>. It should contain a single hash.</li>
-                        <li>The <b>private box</b> points to the actor's <a href="/actors/private-data/">private data</a>, and should contain a single hash as well.</li>
-                        <li>The <b>message box</b> collects <a href="/actors/message/">messages</a> sent by other <a href="/actors/">actors</a>, and may contain an arbitrary number of hashes.</li>
-                    </ul>
-                    
-                    <p>In contrast to objects and trees, boxes are mutable. Hashes can be added and removed.</p>
-                    
-
-                         
-                    <h3>End-to-end encryption</h3>
-
-                    <h3>Message passing</h3>
-                    
-                    <h2>Conclusion</h2>
+              <footer class="pb-5 bg-primary-3 text-light">
+                <div class="container" style="flex-direction: column;">
+                  <div class="row mb-4 justify-content-center">
+                    <div class="col-auto">
+                        <a href="../">
+                            <img src="../assets/img/logo-white.svg" alt="Condensation" class="icon icon-lg">
+                        </a>
                     </div>
-                
-            </div>
-          </div>
-        </div>
-      </section>
-    
-    
+                  </div>
+                  <div class="row justify-content-center text-center">
+                    <div class="col-xl-10">
+              <small class="text-muted">Condensation &copy;2021 All Rights Reserved. <a href="mailto:info@condensationDB.com" class="hover-arrow">Get in touch</a></small>          </div>
+                  </div>
+                </div>
+                <div style="height:60px;">
+                </div>
+              </footer>
+
  
       <!-- Required vendor scripts (Do not remove) -->
       <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
