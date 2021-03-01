@@ -6,7 +6,7 @@
 </p>
 
 <h1 align="center">
-  Get into the code and make it happen
+  Get the code
 </h1>
 
 <br>
@@ -30,7 +30,7 @@ The technical specification is mostly available, you can find it at the links be
 Condensation is fully operational and stable but we are still packaging it, preparing instructions for the installation, and building the first tutorials. The most advanced developers can already get into the code with the following links.<br>
 
 [Java implementation repository](https://github.com/CondensationDB/Condensation-java) *operational and stable*<br>
-[Javascript implementation repository](https://github.com/CondensationDB/Condensation-Javascript) *low level version is working but not the database*<br>
+[Javascript implementation repository](https://github.com/CondensationDB/Condensation-Javascript) *low level immutable part is working but not the higher level database*<br>
 [Typescript implementation repository](https://github.com/CondensationDB/Condensation-Typescript) *started by community, might be turned to private mode*<br>
 
 ## Become a contributor
