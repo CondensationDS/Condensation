@@ -20,174 +20,25 @@
   <link rel="preload" as="font" href="../assets/fonts/Inter-UI-upright.var.woff2" type="font/woff2" crossorigin="anonymous">
   <link rel="preload" as="font" href="../assets/fonts/Inter-UI.var.woff2" type="font/woff2" crossorigin="anonymous">
       
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-187133960-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-187133960-1');
+      </script>
+
+      
 </head>
     
 <style>
-    
-    #block-1, #block-2 {
-      width: 30px;
-      height: 20px;
-      background: white;
-      position:absolute;
-      opacity:0;
-      transition: all 0.8s ease-in-out;
-      margin-top:20px;
-      border-left: 12px solid rgb(210,210,210);
+
+    #table1 td {
+    white-space:normal;
+
     }
-
-    #block-1 {
-        top:400px;
-        left:240px;
-    }
-    #block-2 {
-        top:400px;
-        left:280px;
-    }
-
-
-    /*
-      offset-path: path('M 184,420 L 360,230');
-      animation: move 2000ms  forwards linear;
-      animation-delay: 6s;
-     */
-
-#document-1 {
-      offset-path: path('M 253,500 L 500,180 L 747, 500');
-      offset-rotate: 0deg;
-      animation: moveDoc 6000ms forwards ease-in-out;
-      animation-delay:0.6s;
-      width: 30px;
-      position:absolute;
-      top:0;
-      left:0;
-      opacity:0
-    }
-
-    @keyframes move {
-      0% {
-        offset-distance: 0%;
-        opacity:1;
-      }
-      70% {
-        offset-distance: 70%;
-        opacity:1;
-      }
-      100% {
-        offset-distance: 100%;
-        opacity:0;
-      }
-    }
-
-    @keyframes moveDoc {
-      0% {
-        offset-distance: 0%;
-        opacity:0;
-      }
-      30% {
-        offset-distance: 0%;
-        opacity:1;
-      }
-      50% {
-        offset-distance: 50%;
-        opacity:1;
-      }
-      80% {
-        offset-distance: 50%;
-        opacity:1;
-      }
-      100% {
-        offset-distance: 100%;
-        opacity:1;
-      }
-    }
-
-#doc-description-1 {
-    animation: showDescription 600ms forwards ease-in-out;
-    animation-delay:0s;
-}
-
-#doc-description-2 {
-    animation: showDescription 600ms forwards ease-in-out;
-    animation-delay:3s;
-}
-
-#doc-description-3 {
-    animation: showDescription 600ms forwards ease-in-out;
-    animation-delay:5.8s;
-}
-
-@keyframes showDescription {
-     0% {
-       opacity:0;
-     }
-     100% {
-       opacity:1;
-       margin-left:0px;
-     }
-   }
-
-
-#title-a1, #title-a2 {
-    position:absolute;
-    top:40px;
-    left:250px;
-    width:500px;
-    font-weight:bold;
-    font-size:26px;
-    line-height:30px;
-    text-align:center;
-    opacity:0;
-    margin-top:20px;
-    transition: all 0.3s ease-in-out;
-}
-
-#title-a3 {
-    position:absolute;
-    top:0px;
-    bottom:0px;
-    left:250px;
-    width:500px;
-    font-weight:bold;
-    font-size:26px;
-    line-height:30px;
-    text-align:center;
-    align-items:center;
-    display:flex;
-    opacity:0;
-    transition: all 0.3s ease-in-out;
-}
-
-#doc-1 {
-  width: 30px;
-  position:absolute;
-  top:502px;
-  left:261px;
-  opacity:0;
-  transition: all 0.3s ease-in-out;
-}
-
-#doc-2 {
-  width: 30px;
-  position:absolute;
-  top:502px;
-  right:257px;
-  opacity:0;
-  transition: all 0.3s ease-in-out;
-}
-
-#doc-3, #doc-3bis  {
-  width: 48px;
-  position:absolute;
-  top:200px;
-  right:476px;
-  opacity:0;
-  transition: all 0.3s ease-in-out;
-}
-
-#table1 td {
-white-space:normal;
-
-}
 
 </style>
 
@@ -198,10 +49,46 @@ white-space:normal;
       <div class="loading-animation"></div>
     </div>
     
-    <section class="bg-primary-3 has-divider text-light">
-        <div style="background-color:var(--primary); text-align:center; font-weight:bold; padding:10px;">
-            <a href="../#subscribe-form" class="hover-arrow">v0 online, get notified for technical specification release.</a>
+     <div class="navbar-container">
+         <div style="background-color:var(--primary); text-align:center; font-weight:bold; padding:10px;">
+             <a href="../#subscribe-form" class="hover-arrow text-light">White paper v0 online, get notified for technical specification release</a>
+         </div>
+            <nav class="navbar navbar-expand-lg justify-content-between navbar-light border-bottom-0 bg-white" data-sticky="top">
+
+                
+                <div class="container">
+                    <div class="col flex-fill px-0 d-flex justify-content-between">
+                        <a href="../"><img src="../assets/img/logo.svg" style="max-height:40px;" alt="Condensation"></a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                                <img class="icon navbar-toggler-open" src="../assets/img/icons/interface/menu.svg" alt="menu interface icon" data-inject-svg>
+                                    <img class="icon navbar-toggler-close" src="../assets/img/icons/interface/cross.svg" alt="cross interface icon" data-inject-svg>
+                                        </button>
+                            </div>
+                    <div class="flex-fill"></div>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="../how-it-works" class="nav-link">How it works</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../about-us" class="nav-link">Who we are</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../newsroom" class="nav-link">What's new</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a id="banner-primary-button" href="https://github.com/condensationdb/condensation" class="btn btn-primary ml-lg-2 pl-2" target="_blank" style="white-space:nowrap;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" class="injected-svg icon pl-0" data-src="assets/img/icons/social/github.svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                    View on GitHub</a>
+
+                </div>
+            </nav>
         </div>
+
+    
+    <section class="bg-primary-3 has-divider text-light">
+
           <div class="container text-center pb-md-0">
             <div class="row justify-content-center text-center mb-6">
               <div class="col-xl-12 col-lg-12 col-md-12">
@@ -214,316 +101,12 @@ white-space:normal;
             </div>
 
             <figure>
-              <div style="width:1000px !important; max-width:auto !important; height:600px; background-color:var(--primary-2); border-radius:12px; display:inline-block; z-index:100; position:relative;">
-                  
-                  <div id="title-a1">
-                      Centralized server used to be the main place to synchronize the data...
-                  </div>
-                  
-                  <div id="title-a2">
-                      Condensed systems are distributed and synchronize data on the device.
-                  </div>
-                  
-                  <div id="title-a3">
-                      It results in a flexible systems which is as easy to implement as a document based database but solves all the data protection related challenges.
-                  </div>
-                  
-                  <img id="cloud-1" src="../assets/img/cloud.svg" alt="Cloud" class="rounded" style="position:absolute; top:138px; right:380px;  width:240px; transition: all 0.8s ease-in-out;">
-                  <img id="cloud-2" src="../assets/img/cloud.svg" alt="Cloud" class="rounded" style="position:absolute; top:138px; right:380px;  width:240px; opacity:0; transition: all 0.8s ease-in-out;">
-
-                  <img id="phone-1" src="../assets/img/phone-white.svg" alt="Phone" class="rounded" style="position:absolute; bottom:60px; left:250px; width:48px; transition: all 0.3s ease-in-out;">
-                  <img id="phone-2" src="../assets/img/phone-white.svg" alt="Phone" class="rounded" style="position:absolute; bottom:60px; right:250px; width:48px; transition: all 0.3s ease-in-out;">
-                      
-                  <img id="enveloppe" src="../assets/img/enveloppe.svg" alt="Enveloppe" style="position:absolute; bottom:90px; left:320px;  width:40px; opacity:0; transition: all 0.8s ease-in-out;">
-                
-                <img id="doc-1" src="../assets/img/doc-a.svg" alt="Document">
-                <img id="doc-2" src="../assets/img/doc-b.svg" alt="Document">
-                <img id="doc-3" src="../assets/img/doc-new.svg" alt="Document">
-                <img id="doc-3bis" src="../assets/img/doc-new.svg" alt="Document">
-                    
-                <div id="block-1"></div>
-                <div id="block-2"></div>
-
-                <div id="doc-comment-1" style="position:absolute;  bottom:54px; left:40px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
-                    1. Actor A writes his data into a document, encrypted to be sent.
-                </div>
-                <div id="doc-comment-2" style="position:absolute; bottom:54px; left:780px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
-                    2. Actor B has its own version of the data and needs to compare it with user A to synchronize.
-                </div>
-                <div id="doc-comment-3" style="position:absolute; top:320px; left:390px;  width:240px; text-align:left; opacity:0; margin-top:20px; transition: all 0.3s ease-in-out;">
-                    3. The documents are sent to the cloud and decrypted to be compared...
-                </div>
-                <div id="doc-comment-4" style="position:absolute; top:420px; left:340px;  width:320px; text-align:left; opacity:0; margin-top:20px; transition: all 0.3s ease-in-out;">
-                    And sent back to the users. <br><b>This process explains the importance of the central server which is exposed to breaches as it has to decrypt the data to store it and manipulate it.</b>
-                </div>
-                
-                <div id="doc-comment-5" style="position:absolute;  bottom:54px; left:40px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
-                    1. Actor A writes his data into a document which is transformed into multiple objects, encrypted for a specific receiver.
-                </div>
-                <div id="doc-comment-6" style="position:absolute; bottom:224px; left:40px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
-                    2. The objects are stored encrypted into user A's desired server, they remain available there.
-                </div>
-                <div id="doc-comment-7" style="position:absolute; bottom:20px; left:360px; width:280px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
-                    3. Actor A send a message to User B, telling him to pull the data from his server.
-                </div>
-                <div id="doc-comment-8" style="position:absolute; bottom:54px; left:780px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
-                    4. Actor B pull the data from the server.
-                </div>
-                <div id="doc-comment-9" style="position:absolute; bottom:224px; left:780px; width:180px; text-align:left; opacity:0; margin-bottom:-20px; transition: all 0.3s ease-in-out;">
-                    5. Actor B store his version of the data on his desired server.
-                </div>
-                
-                
-              </div>
+              <video class="plyr" poster="../assets/img/overview-video-poster.png" autoplay="autoplay">
+                  <source src="../assets/img/overview-video.mp4" type="video/mp4" />
+              </video>
               <figcaption>Condensation extends the Cloud with distributed storage servers</figcaption>
             </figure>
-            
-            <script>
-                setTimeout(function(){
-    
-                    var title1 = document.getElementById('title-a1');
-                    var title2 = document.getElementById('title-a2');
-                    var title3 = document.getElementById('title-a3');
-                    var doc1 = document.getElementById('doc-1');
-                    var doc2 = document.getElementById('doc-2');
-                    var doc3 = document.getElementById('doc-3');
-                    var doc3bis = document.getElementById('doc-3bis');
-                    var docComment1 = document.getElementById('doc-comment-1');
-                    var docComment2 = document.getElementById('doc-comment-2');
-                    var docComment3 = document.getElementById('doc-comment-3');
-                    var docComment4 = document.getElementById('doc-comment-4');
-                    var docComment5 = document.getElementById('doc-comment-5');
-                    var docComment6 = document.getElementById('doc-comment-6');
-                    var docComment7 = document.getElementById('doc-comment-7');
-                    var docComment8 = document.getElementById('doc-comment-8');
-                    var docComment9 = document.getElementById('doc-comment-9');
-                    var cloud1 = document.getElementById('cloud-1');
-                    var cloud2 = document.getElementById('cloud-2');
-                    var phone1 = document.getElementById('phone-1');
-                    var phone2 = document.getElementById('phone-2');
-                    var block1 = document.getElementById('block-1');
-                    var block2 = document.getElementById('block-2');
-                    var enveloppe = document.getElementById('enveloppe');
-
-                    
-                    
-                    title1.style.opacity = '1';
-                    title1.style.marginTop = '0px';
-                    
-                    setTimeout(function(){
-                        doc1.style.opacity = '1';
-                        doc1.style.top = '480px';
-                        docComment1.style.marginBottom = '0px';
-                        docComment1.style.opacity = '1';
-
-                    }, 2000);
-                    
-                    setTimeout(function(){
                         
-                        doc1.style.transition = 'all 0.8s ease-in-out';
-                        doc1.style.top = '200px';
-                        doc1.style.left = '440px';
-                        doc1.style.width = '48px';
-
-                    }, 4000);
-                    
-                    setTimeout(function(){
-                        
-                        docComment1.style.opacity = '0';
-
-                    }, 5000);
-                    
-                    setTimeout(function(){
-                        
-                        doc2.style.opacity = '1';
-                        doc2.style.top = '480px';
-                        docComment2.style.marginBottom = '0px';
-                        docComment2.style.opacity = '1';
-                        
-                    }, 6000);
-                    
-                    
-                    setTimeout(function(){
-                        doc2.style.transition = 'all 0.8s ease-in-out';
-                        doc2.style.top = '200px';
-                        doc2.style.right = '440px';
-                        doc2.style.width = '48px';
-                    }, 8000);
-
-                    
-                    setTimeout(function(){
-                        docComment2.style.opacity = '0';
-                    }, 9000);
-
-                    setTimeout(function(){
-                        docComment3.style.marginTop = '0px';
-                        docComment3.style.opacity = '1';
-                    }, 9800);
-                    
-                    setTimeout(function(){
-                        doc1.style.opacity = '0';
-                        doc2.style.opacity = '0';
-                    }, 12800);
-                    
-                    setTimeout(function(){
-                        docComment3.innerHTML = '3. Documents are merged into a common version...';
-
-                        doc3.style.opacity = '1';
-                        doc3bis.style.opacity = '1';
-                    }, 13800);
-
-                    setTimeout(function(){
-                        docComment3.style.opacity = '0';
-                    }, 16800);
-                    
-                    setTimeout(function(){
-                        doc3.style.transition = 'all 0.8s ease-in-out';
-                        doc3.style.top = '482px';
-                        doc3.style.right = '257px';
-                        doc3.style.width = '30px';
-                        
-                        doc3bis.style.transition = 'all 0.8s ease-in-out';
-                        doc3bis.style.top = '482px';
-                        doc3bis.style.right = '708px';
-                        doc3bis.style.width = '30px';
-                        
-                        docComment4.style.marginBottom = '0px';
-                        docComment4.style.opacity = '1';
-                        
-                    }, 17800);
-                    
-                    setTimeout(function(){
-                         doc3.style.opacity = '0';
-                         doc3bis.style.opacity = '0';
-                         docComment4.style.opacity = '0';
-                         title1.style.opacity = '0';
-                     }, 24800);
-                    
-                    setTimeout(function(){
-                         title2.style.opacity = '1';
-                         title2.style.marginTop = '0px';
-                     }, 25800);
-                    
-                    setTimeout(function(){
-                        cloud1.style.right = '600px';
-                        cloud2.style.right = '160px';
-                        cloud2.style.opacity = '1';
-                        
-                        doc1.style.top = '480px';
-                        doc1.style.left = '261px';
-                        doc1.style.width = '30px';
-
-                        doc2.style.top = '480px';
-                        doc2.style.right = '257px';
-                        doc2.style.width = '30px';
-
-                     }, 27800);
-                    
-                    setTimeout(function(){
-
-                        doc1.style.opacity = '1';
-                        doc2.style.opacity = '1';
-
-                     }, 28800);
-                    
-                    setTimeout(function(){
-
-                        block1.style.opacity = '1';
-                        block2.style.opacity = '1';
-                        docComment5.style.marginBottom = '0px';
-                        docComment5.style.opacity = '1';
-
-                     }, 30800);
-                    
-                    setTimeout(function(){
-                        docComment5.style.opacity = '0';
-                    }, 33200);
-                    
-                    setTimeout(function(){
-
-                        block1.style.top = '200px';
-                        block2.style.top = '200px';
-
-                        docComment6.style.marginBottom = '0px';
-                        docComment6.style.opacity = '1';
-                        
-                     }, 33800);
-                    
-                    setTimeout(function(){
-                        docComment6.style.opacity = '0';
-                    }, 36800);
-                    
-                    setTimeout(function(){
-                        enveloppe.style.opacity = '1';
-                        enveloppe.style.left = '650px';
-                        
-                        docComment7.style.marginBottom = '0px';
-                        docComment7.style.opacity = '1';
-
-                    }, 37800);
-                    
-                    setTimeout(function(){
-                        docComment7.style.opacity = '0';
-                    }, 40800);
-                    
-                    
-                    setTimeout(function(){
-
-                        block1.style.top = '400px';
-                        block1.style.left = '686px';
-                        
-                        block2.style.top = '400px';
-                        block2.style.left = '726px';
-                        
-                        docComment8.style.marginBottom = '0px';
-                        docComment8.style.opacity = '1';
-
-                    }, 41800);
-                    
-                    setTimeout(function(){
-                        enveloppe.style.opacity = '0';
-                        docComment8.style.opacity = '0';
-                    }, 44800);
-                    
-                    setTimeout(function(){
-
-                        block1.style.top = '200px';
-                        block2.style.top = '200px';
-                        
-                        docComment9.style.marginBottom = '0px';
-                        docComment9.style.opacity = '1';
-
-                    }, 45800);
-                    
-                    setTimeout(function(){
-                        docComment9.style.opacity = '0';
-                        title2.style.opacity = '0';
-                        
-                        doc1.style.opacity = '0';
-                        doc2.style.opacity = '0';
-                        
-                        cloud1.style.opacity = '0';
-                        cloud2.style.opacity = '0';
-                        
-                        phone1.style.opacity = '0';
-                        phone2.style.opacity = '0';
-                        
-                        block1.style.opacity = '0';
-                          block2.style.opacity = '0';
-                        
-                    }, 49200);
-                    
-
-                    setTimeout(function(){
-                        title3.style.opacity = '1';
-                    }, 51200);
-                    
-                    
-                    
-                }, 1000);
-            </script>
-
-            
           </div>
           <div class="divider d-none d-md-block">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="96px" viewBox="0 0 100 100" version="1.1" preserveAspectRatio="none" class="injected-svg" data-src="../assets/img/dividers/divider-2.svg">
@@ -563,66 +146,8 @@ white-space:normal;
                     
                     <figure>
                       
-                      <div style="width:1000px !important; max-width:auto !important; height:600px; border-radius:12px; display:inline-block; z-index:100; position:relative; overflow:hidden; z-index:1">
+                      <img src="../assets/img/historic-evolution.png" alt="Image" class="rounded">
                           
-                          
-                          <div style="position:absolute; top:0; left:0; width:50%; height:600px; background-color:var(--primary-2);"></div>
-                          
-                          <div style="position:absolute; top:30px; left:30px; width:440px; text-align:left; color:white;">
-                              <div class="h4" style="color:white;">Mutable systems</div>
-                              <div>Data can be modified and synchronized easily but requires additionnal trusting layers and operations generaly through a centralized server.</div>
-                          </div>
-                          
-                          <div style="position:absolute; top:30px; right:30px; width:440px; text-align:right; color:white;">
-                              <div class="h4" style="color:white;">Immutable systems</div>
-                              <div>Data is protected and trusted and so can be decentralized easily, however synchronization is notoriously inefficient.</div>
-                          </div>
-                          
-                          
-                          <div style="position:absolute; top:450px; left:700px; color:white;">
-                              <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                              <b>2005</b> Git version control
-                          </div>
-                          
-                        <div style="position:absolute; top:350px; left:120px; color:white;">
-                                <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                                <b>2000s</b> noSQL
-                        </div>
-
-                        <div style="position:absolute; top:250px; left:700px; color:white;">
-                                <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                                <b>2008</b> Blockchain
-                        </div>
-                          
-                        <div style="position:absolute; top:340px; left:380px; color:white;">
-                            <div style="display:flex; flex-direction:row; align-items:center;">
-                                <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                                <div style="width:200px; height:4px; background-color:white; border-radius:20px; margin:0 -10px;"></div>
-                                <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                            </div>
-                                <b>2021</b> Condensation
-                        </div>
-                        
-                        <div style="position:absolute; top:340px; left:800px; color:white;">
-                                <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                                <b>1971</b> Email system
-                        </div>
-                        
-                          <div style="position:absolute; top:260px; left:60px; color:white;">
-                              <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                              <b>1974</b> SQL
-                          </div>
-                                       
-                        <div style="position:absolute; top:450px; left:200px; color:white;">
-                            <div style="width:20px; height:20px; background-color:white; border-radius:20px;"></div>
-                            <b>1977</b> FAT
-                        </div>
-                        
-                        <div style="position:absolute; top:0; left:0; width:50%; height:600px; background-color:var(--primary-2); z-index:-1;"></div>
-                        <div style="position:absolute; top:0; right:0; width:50%; height:600px; background-color:var(--primary); z-index:-1;"></div>
-                                                                 
-                        
-                      </div>
                       <figcaption>A historical evolution of data systems</figcaption>
                     </figure>
                     
@@ -803,7 +328,7 @@ white-space:normal;
                   </div>
                   
                   <div class="ph-5 text-light" style="margin-top:30px; padding:90px 20vw; background-color:var(--primary-2);">
-                      <h2>Data flow technical specifications coming soon</h2>
+                      <h2>Data flow technical specifications</h2>
                       Learn more about how Condensation send data. From creating an actor with his key pairs, creating a store, and passing data using envelopes.<br><br>
                       <a href="https://condensation.io/overview/actors/" class="hover-arrow">coming soon, first notes available here</a>
                   </div>
