@@ -20,7 +20,7 @@ It's a one stop open source project to match the next decades complex security c
 **What you can build with**
 * Build any kind of app secured by design, with real end-to-end encryption.
 * Build collaborative tools such as google doc, but with control on the code and the privacy.
-* Build distributed systems where each user can store data on his sever while synchronizing with others.
+* Build distributed systems where each user can store data on his server while synchronizing with others.
 
 ## Motivation
 
