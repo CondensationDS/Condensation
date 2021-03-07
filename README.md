@@ -17,7 +17,7 @@
 Condensation enables to build modern applications while ensuring data ownership and security.
 It's a one stop open source project to match the next decades complex security challenges and to protect digital rights.
 
-**What you can build with**
+**What you can build with Condensation**
 * Build any kind of app secured by design, with real end-to-end encryption.
 * Build collaborative tools such as google doc, but with control on the code and the privacy.
 * Build distributed systems where each user can store data on his server while synchronizing with others.
