@@ -91,7 +91,7 @@ You can get in touch at info@condensationDB.com.
 
 ## Thanks to our sponsors
 
-<img src="https://preview.condensation.io/assets/img/SPEI.png" alt="SPEI" height="120"><img src="https://preview.condensation.io/assets/img/Innosuisse.png" alt="Innosuisse" height="120"><img src="https://preview.condensation.io/assets/img/epfl-logo-bw.png" alt="EPFL" height="60">
+<img src="https://preview.condensation.io/assets/img/SPEI.png" alt="SPEI" height="120"><img src="https://preview.condensation.io/assets/img/Innosuisse.png" alt="Innosuisse" height="120"><img src="https://preview.condensation.io/assets/img/epfl-logo-bw-border.png" alt="EPFL" height="120">
 
 ## Become a contributor
 
