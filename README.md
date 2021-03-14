@@ -6,9 +6,9 @@
 </p>
 
 <h1 align="center">
-  A general-purpose distributed database
+  The securest database,
   <br>
-  with inherent end-to-end security
+  to build whatever you need
 </h1>
 
 <br>
@@ -17,7 +17,21 @@
 Condensation enables to build modern applications while ensuring data ownership and security.
 It's a one stop open source project to match the next decades complex security challenges and to protect digital rights.
 
-**What you can build with Condensation**
+**Condensation is built around security**
+* Data control: Users encrypt their data only for other entrusted users intended to receive the data.
+* Data protection: Data is never decrypted at a server level making to hosting providers/malicious persons impossible to read stored data.
+* Data reliability: Data is always signed and marked by a timestamp. Nothing is lost even when a user goes offline.
+* Data integrity: Data is identified by an address which is generated from its content allowing to ensure data content hasn't been altered and data issuer is the original one.
+
+**Key features of Condensation**
+* Distributed database
+* Cloud compatible
+* Multiple data type storage
+* Conflict free merge
+* Versioning
+* Offline & mobile-first mode
+
+**What can you build with Condensation**
 * Build any kind of app secured by design, with real end-to-end encryption.
 * Build collaborative tools such as google doc, but with control on the code and the privacy.
 * Build distributed systems where each user can store data on his server while synchronizing with others.
@@ -60,7 +74,7 @@ Condensation Java implementation is stable but we are still packaging it, prepar
 
 [Source code](https://github.com/CondensationDB/Condensation/tree/main/Get-the-code)<br>
 
-If you have a strong desire to contribute, please just get in touch at info@condensationDB.com, we will walk through the installation together.
+If you have a strong desire to contribute, please just get in touch at community@condensationDB.com, we will walk through the installation together.
 
 ## Project roadmap
 
@@ -75,13 +89,15 @@ If you have a strong desire to contribute, please just get in touch at info@cond
 
 ## Contribute
 
-**Raising awareness and educating about Condensation**
+Are you interested to participateto our adventure? Get in touch at community@condensationDB.com
+
+We need your help to:
+
+**Raise awareness and educating about Condensation**
 The first thing we want is to educate on how innovative is Condensation to build solutions. Indeed, this new kind of database bridging the gap between mutable and immutable structures, has many benefits such as end-to-end encryption, multi-device synchronization, collaboration, offline-first, and much more we didn't yet described. Producing educational material is critical to raise awareness about the project. It can be articles, use cases, diagrams, advices and testimonials from your experience. We build this community to support your content, we will always do the best to enhance your positive impact on the project.
 
-**Contributing by porting the core**
-The priority is now to port the code to other systems as Condensation is mainly on the client side. For the immutable part of Condensation, specifications are now exhaustively described and we are available to guide you into each step. If you are interested in contributing, we will give you more details on the next priorities and connect you with our pioneering community.
-
-You can get in touch at info@condensationDB.com.
+**Developing the core of Condensation**
+The priority is now to port the code to other languages (e.g. Javascript, Swift) as Condensation is mostly developed on Java as of today. For the immutable part of Condensation, specifications are now exhaustively described and we are available to guide you into each step. If you are interested in contributing, we will give you more details on the next priorities and connect you with our pioneering community.
 
 ## Main links
 
@@ -95,4 +111,4 @@ You can get in touch at info@condensationDB.com.
 
 ## Become a contributor
 
-We are actively developing Condensation, if you want to invest, to contribute or to develop a pilot please reach out at info@condensationDB.com
+We are actively developing Condensation, if you want to invest, to contribute or to develop a pilot please reach out at community@condensationDB.com
