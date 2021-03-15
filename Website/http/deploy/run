@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 'use strict';
 
-// HTML Deploy Script, version 2021-01-04
+// HTML Deploy Script, version 2021-02-22
 // Author: Thomas Lochmatter, thomas.lochmatter@viereck.ch
-// Published under the MIT license
+// MIT license, https://mit-license.org
 
 // Load dependencies
 const fs = require('fs');
@@ -11,9 +11,20 @@ const path = require('path');
 const process = require('process');
 const child_process = require('child_process');
 const vm = require('vm');
+const statCache = new StatCache();
 
-// Configuration
-var uploadScript = 'deploy-configuration/upload/' + (process.argv[2] || 'default');
+// Verify
+verifyChDir();
+
+function verifyChDir() {
+	if (statCache.stat('deploy').isDir) return;
+	if (statCache.stat('../deploy').isDir) return process.chdir('..');
+	console.log('Your current directory (' + process.cwd() + ') has not been configured for deployment.');
+	process.exit(1);
+}
+
+// Upload script
+var uploadScript = 'deploy/upload/' + (process.argv[2] || 'default');
 
 // Constants
 var ansi = {
@@ -69,7 +80,6 @@ contextPrototype.javaScriptMacros = new Map();
 contextPrototype.javaScriptStringLiteralHandlers = [];
 
 // Run
-var statCache = new StatCache();
 var modifiedFiles = [];
 var rules = new RuleSet();
 var lastFullScan = 0;
@@ -91,12 +101,7 @@ function run() {
 	rules.execute();
 
 	// Upload
-	upload(done);
-
-	function done(exitCode) {
-		if (exitCode == 1) process.exit(0);
-		setTimeout(run, 1000);
-	}
+	upload();
 
 	function scanFolder(folder) {
 		var files = fs.readdirSync(folder);
@@ -115,7 +120,6 @@ function run() {
 		if (file.match(/\.lib\.[0-9a-zA-Z]*$/)) return;
 		if (file.match(/\.orig$/)) return;
 		if (file.match(/^deploy$/)) return;
-		if (file.match(/^upload-[0-9a-zA-Z]+$/)) return;
 
 		if (checkRule(/\.build\.(html|js|css)$/, runHTMLRule)) return;
 		if (checkRule(/\.translate$/, runTranslationRule)) return;
@@ -135,6 +139,22 @@ function run() {
 			rule.dependencies[file] = 0;
 			return rule;
 		}
+	}
+
+	function upload() {
+		if (! modifiedFiles.length) return setTimeout(run, 1000);
+
+		var stat = statCache.stat(uploadScript);
+		if (! stat.isFile) return uploaded(0);
+
+		logBlue('Uploading ' + (modifiedFiles.length == 1 ? '1 file' : modifiedFiles.length + ' files'));
+		child_process.spawn('./' + uploadScript, modifiedFiles, {stdio: 'inherit'}).on('close', uploaded);
+	}
+
+	function uploaded(exitCode) {
+		if (exitCode != 0) process.exit(0);
+		console.log('--');
+		setTimeout(run, 1000);
 	}
 }
 
@@ -190,19 +210,6 @@ function runMarkForUploadRule(name, rule) {
 	modifiedFiles.push(rule.file);
 }
 
-function upload(doneHandler) {
-	if (! modifiedFiles.length) return doneHandler(0);
-
-	var stat = statCache.stat(uploadScript);
-	if (! stat.isFile) {
-		console.log('--');
-		return doneHandler(0);
-	}
-
-	logBlue('Uploading ' + (modifiedFiles.length == 1 ? '1 file' : modifiedFiles.length + ' files'));
-	child_process.spawn('./' + uploadScript, modifiedFiles, {stdio: 'inherit'}).on('close', doneHandler);
-}
-
 function runExternalRule(name, rule) {
 	var code = readTextFileSync(rule.file);
 	if (code == null) return;
@@ -244,7 +251,7 @@ function runHTMLRule(name, rule) {
 		var result = context.readFile(file);
 		if (! result) return;
 		if (indent) result.state.indent = indent;
-		include(result.content.trim(), result.state);
+		include(result.content, result.state);
 	};
 
 	context.insert = function(content) { output.push(addIndent(content, context.stack[context.stack.length - 1].indent)); };
@@ -262,7 +269,7 @@ function runHTMLRule(name, rule) {
 
 	context.require = function(file) {
 		var top = context.stack[context.stack.length - 1];
-		if (file[0] == '.' && file[1] == '/') file = './' + joinPath(top.folder, file);
+		if (file[0] == '.' && file[1] == '/') file = path.resolve(path.join(top.folder, file));
 		return require(file);
 	};
 
@@ -307,11 +314,11 @@ function runHTMLRule(name, rule) {
 	}
 
 	// Prepare the auto-use functions
-	prepareAutoUse();
+	prepareAutoUse('deploy/auto-use');
 
-	function prepareAutoUse() {
+	function prepareAutoUse(folder) {
 		try {
-			var autoUseFiles = fs.readdirSync('deploy-configuration/auto-use');
+			var autoUseFiles = fs.readdirSync(folder);
 		} catch (ignore) { return; }
 		for (var file of autoUseFiles) add(file);
 
@@ -323,8 +330,8 @@ function runHTMLRule(name, rule) {
 
 			function loader() {
 				context[name] = function() { };
-				context.use('/deploy-configuration/auto-use/' + file);
-				context[name](...arguments);
+				context.use('/' + folder + '/' + file);
+				return context[name](...arguments);
 			}
 		}
 	}
@@ -530,17 +537,6 @@ function runHTMLRule(name, rule) {
 			while (cp != -1) {
 				if (pos == startOfLinePos) includeUntil(pos);
 
-				if (pos == startOfLineContentPos) {
-					if (eatText('INCLUDE')) {
-						includeUntil(pos - 7);
-						var subIndent = currentIndent();
-						var file = readUntil('\n').trim();
-						context.include(file, subIndent);
-						includedPos = pos - 1;
-						continue;
-					}
-				}
-
 				if (isLetter(cp)) {
 					var startPos = pos;
 					var word = readWord();
@@ -565,6 +561,14 @@ function runHTMLRule(name, rule) {
 					// Remove multiline comments
 					includeUntil(pos - 2);
 					readUntil('*/');
+					includedPos = pos;
+					continue;
+				} else if (eatText('<?')) {
+					// Execute code
+					includeUntil(pos - 2);
+					var subIndent = currentIndent();
+					var code = readUntil('?>');
+					runInContext(code, {location: here(), indent: subIndent, folder: state.folder});
 					includedPos = pos;
 					continue;
 				} else if (isInsideHtml && eatText('</script>')) {
@@ -599,17 +603,21 @@ function runHTMLRule(name, rule) {
 		function parseCSS() {
 			var isInsideHtml = context.baseFormat == 'html';
 			while (cp != -1) {
-				if (pos == startOfLineContentPos) {
-					if (eatWord('INCLUDE')) {
-						includeUntil(pos - 7);
-						var subIndent = currentIndent();
-						var file = readUntil('\n').trim();
-						context.include(file, subIndent);
-						includedPos = pos - 1;
-					}
-				}
-
-				if (isInsideHtml && eatText('</style>')) {
+				if (eatText('/*')) {
+					// Remove multiline comments
+					includeUntil(pos - 2);
+					readUntil('*/');
+					includedPos = pos;
+					continue;
+				} else if (eatText('<?')) {
+					// Execute code
+					includeUntil(pos - 2);
+					var subIndent = currentIndent();
+					var code = readUntil('?>');
+					runInContext(code, {location: here(), indent: subIndent, folder: state.folder});
+					includedPos = pos;
+					continue;
+				} else if (isInsideHtml && eatText('</style>')) {
 					context.format = 'html';
 					closeTag('style');
 					break;

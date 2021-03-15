@@ -1,14 +1,39 @@
-<head>
-    <script src="jquery.js"></script>
-    <script>
-    $(function(){
-      $("#includedContent").load("https://preview.condensation.io/header/");
-    });
-    </script>
-  </head> 
+<!DOCTYPE html>
 
-  <body>
-    <div id="includedContent"></div>
+<html lang="en">
+
+<head>
+	<? include('../header/http-header.inc.html') ?>
+
+	<title>About us | Condensation</title>
+	<meta name="description" content="The most secure database, to build whatever you need.">
+</head>
+
+<body style="position:relative; max-width:100vw;">
+
+	<!--
+	Avec include, on peut inclure un fichier *.inc.html.
+	Le contenu du fichier est inséré ici lorsqu'on publie la page, et pas lorsque l'utilisateur charge la page.
+	Ceci est en général mieux, car ça évite de charger des fichiers supplémentaires.
+	-->
+	<? include('../header/navbar.inc.html') ?>
+
+	<!--
+	Avec svgFile, on peut inclure un fichier *.svg directement dans le code HTML.
+	Contrairement à data-inject-svg, le code est également inséré lorsqu'on publie, et pas lorsque l'utilisateur charge la page.
+	Pour les petites images et icones, ceci est également mieux, car ça charge plus vite, et rien ne saute.
+	Pour les grandes images (50 KB ou plus), data-inject-svg peut être avantageux pour ne pas trop charger le téléchargement de la page principale.
+	-->
+	<div style="text-align:center">
+		<a href="https://github.com/condensationdb/condensation" class="btn btn-lg btn-primary mb-2" target="_blank">
+		  <? svgFile('../assets/img/icons/social/github.svg', {'class': 'icon', alt: 'github social icon'}) ?>
+		  <span>View on GitHub (avec svgFile)</span>
+		</a>
+	</div>
+
+	<!--
+	D'ailleurs, les commentaires HTML comme celui-ci sont automatiquement enlevés du HTML final.
+	-->
 
     <section>
       <div class="container">
@@ -19,7 +44,7 @@
             <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center align-items-sm-start mt-5">
               <div class="d-flex flex-column mx-1 text-center">
                 <a href="https://github.com/condensationdb/condensation" class="btn btn-lg btn-primary mb-2" target="_blank">
-                  <img class="icon" src="assets/img/icons/social/github.svg" alt="github social icon" data-inject-svg>
+                  <img class="icon" src="../assets/img/icons/social/github.svg" alt="github social icon" data-inject-svg>
                   <span>View on GitHub</span>
                 </a>
                 <a href="https://condensation.io" class="text-small hover-arrow" target="_blank">View documentation</a>
@@ -47,7 +72,7 @@
             <div class="row">
               <div class="col-md-6 d-flex mb-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon-round bg-primary mr-3">
-                  <img class="icon bg-primary" src="assets/img/icons/theme/communication/group.svg" alt="icon" data-inject-svg>
+                  <img class="icon bg-primary" src="../assets/img/icons/theme/communication/group.svg" alt="icon" data-inject-svg>
                 </div>
                 <div>
                   <div class="h4 mb-2">Data control</div>
@@ -56,7 +81,7 @@
               </div>
               <div class="col-md-6 d-flex mb-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-round bg-primary mr-3">
-                  <img class="icon bg-primary" src="assets/img/icons/theme/code/time-schedule.svg" alt="icon" data-inject-svg>
+                  <img class="icon bg-primary" src="../assets/img/icons/theme/code/time-schedule.svg" alt="icon" data-inject-svg>
                 </div>
                 <div>
                   <div class="h4 mb-2">Data reliability</div>
@@ -65,7 +90,7 @@
               </div>
               <div class="col-md-6 d-flex mb-4" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-round bg-primary mr-3">
-                  <img class="icon bg-primary" src="assets/img/icons/theme/general/shield-protected.svg" alt="icon" data-inject-svg>
+                  <img class="icon bg-primary" src="../assets/img/icons/theme/general/shield-protected.svg" alt="icon" data-inject-svg>
                 </div>
                 <div>
                   <div class="h4 mb-2">Data protection</div>
@@ -74,7 +99,7 @@
               </div>
               <div class="col-md-6 d-flex mb-4" data-aos="fade-up" data-aos-delay="400">
                 <div class="icon-round bg-primary mr-3">
-                  <img class="icon bg-primary" src="assets/img/icons/theme/shopping/box-2.svg" alt="icon" data-inject-svg>
+                  <img class="icon bg-primary" src="../assets/img/icons/theme/shopping/box-2.svg" alt="icon" data-inject-svg>
                 </div>
                 <div>
                   <div class="h4 mb-2">Data integrity</div>
@@ -94,7 +119,7 @@
 
 
     <section class="bg-primary-3 min-vh-100 jarallax d-flex align-items-center text-light" data-jarallax data-speed="0.7" style="width:100vw;">
-      <img src="assets/img/drops-black.jpg" alt="Image" class="jarallax-img">
+      <img src="../assets/img/drops-black.jpg" alt="Image" class="jarallax-img">
       <div class="container">
           <div class="row justify-content-center text-center mb-6">
             <div class="col-xl-7 col-lg-7">
@@ -124,7 +149,7 @@
         </div>
         <div class="row">
           <div class="col-md-4 d-flex mb-4" data-aos="fade-up" data-aos-delay="100">
-            <img class="icon" src="assets/img/icons/theme/code/git-3.svg" alt="icon" data-inject-svg>
+            <img class="icon" src="../assets/img/icons/theme/code/git-3.svg" alt="icon" data-inject-svg>
             <div class="ml-3">
               <h3 class="h5">Distributed database</h3>
               <p>
@@ -133,7 +158,7 @@
             </div>
           </div>
           <div class="col-md-4 d-flex mb-4" data-aos="fade-up" data-aos-delay="200">
-            <img class="icon" src="assets/img/icons/theme/weather/cloud-1.svg" alt="icon" data-inject-svg>
+            <img class="icon" src="../assets/img/icons/theme/weather/cloud-1.svg" alt="icon" data-inject-svg>
             <div class="ml-3">
               <h3 class="h5">Cloud compatible</h3>
               <p>
@@ -143,7 +168,7 @@
             </div>
           </div>
           <div class="col-md-4 d-flex mb-4" data-aos="fade-up" data-aos-delay="300">
-            <img class="icon" src="assets/img/icons/theme/communication/mail-opened.svg" alt="icon" data-inject-svg>
+            <img class="icon" src="../assets/img/icons/theme/communication/mail-opened.svg" alt="icon" data-inject-svg>
             <div class="ml-3">
               <h3 class="h5">Multiple data type storage</h3>
               <p>
@@ -152,7 +177,7 @@
             </div>
           </div>
           <div class="col-md-4 d-flex mb-4" data-aos="fade-up" data-aos-delay="400">
-            <img class="icon" src="assets/img/icons/theme/code/option.svg" alt="icon" data-inject-svg>
+            <img class="icon" src="../assets/img/icons/theme/code/option.svg" alt="icon" data-inject-svg>
             <div class="ml-3">
               <h3 class="h5">Conflict free merge</h3>
               <p>
@@ -161,7 +186,7 @@
             </div>
           </div>
           <div class="col-md-4 d-flex mb-4" data-aos="fade-up" data-aos-delay="500">
-            <img class="icon" src="assets/img/icons/theme/code/github.svg" alt="icon" data-inject-svg>
+            <img class="icon" src="../assets/img/icons/theme/code/github.svg" alt="icon" data-inject-svg>
             <div class="ml-3">
               <h3 class="h5">Versioning</h3>
               <p>
@@ -171,7 +196,7 @@
             </div>
           </div>
           <div class="col-md-4 d-flex mb-4" data-aos="fade-up" data-aos-delay="600">
-            <img class="icon" src="assets/img/icons/theme/weather/moon.svg" alt="icon" data-inject-svg>
+            <img class="icon" src="../assets/img/icons/theme/weather/moon.svg" alt="icon" data-inject-svg>
             <div class="ml-3">
               <h3 class="h5">Offline & mobile-first mode</h3>
               <p>
@@ -194,7 +219,7 @@
                 <a href="#subscribe-form" class="btn btn-lg btn-white">Subscribe for updates now</a>
               </div>
               <div class="decoration layer-0">
-                <img class="bg-primary-2" src="assets/img/decorations/deco-blob-1.svg" alt="deco-blob-1 decoration" data-inject-svg>
+                <img class="bg-primary-2" src="../assets/img/decorations/deco-blob-1.svg" alt="deco-blob-1 decoration" data-inject-svg>
               </div>
             </div>
 
@@ -281,7 +306,7 @@
              <div class="col-xl-4 col-lg-5 col-md-6 mb-lg-n7 layer-2" data-aos="fade-left">
                <a href="/white-paper" class="card card-icon-3 card-body justify-content-between hover-shadow-3d rotate-right">
                  <div class="icon-round mb-3 mb-md-4 bg-primary">
-                   <img class="icon bg-primary" src="assets/img/icons/theme/files/selected-file.svg" alt="icon" data-inject-svg>
+                   <img class="icon bg-primary" src="../assets/img/icons/theme/files/selected-file.svg" alt="icon" data-inject-svg>
                  </div>
                  <div>
                    <div class="h3">Condensation</div>
@@ -297,7 +322,7 @@
            </div>
          </div>
          <div class="divider">
-           <img class="bg-primary-3" src="assets/img/dividers/divider-3.svg" alt="divider graphic" data-inject-svg>
+           <img class="bg-primary-3" src="../assets/img/dividers/divider-3.svg" alt="divider graphic" data-inject-svg>
          </div>
        </section>
        <section class="bg-primary-3 text-light">
@@ -376,19 +401,19 @@
                    <ul class="list-unstyled mb-0">
                      <li class="d-flex py-1">
                        <div class="icon-round icon-round-xs bg-primary mr-2">
-                         <img class="icon bg-primary" src="assets/img/icons/interface/check.svg" alt="Checkmark icon" data-inject-svg>
+                         <img class="icon bg-primary" src="../assets/img/icons/interface/check.svg" alt="Checkmark icon" data-inject-svg>
                        </div>
                         <span class="font-weight-bold">Be the first to learn about new releases</span>
                      </li>
                      <li class="d-flex py-1">
                        <div class="icon-round icon-round-xs bg-primary mr-2">
-                         <img class="icon bg-primary" src="assets/img/icons/interface/check.svg" alt="Checkmark icon" data-inject-svg>
+                         <img class="icon bg-primary" src="../assets/img/icons/interface/check.svg" alt="Checkmark icon" data-inject-svg>
                        </div>
                        <span class="font-weight-bold">Get the white paper when published</span>
                      </li>
                      <li class="d-flex py-1">
                        <div class="icon-round icon-round-xs bg-primary mr-2">
-                         <img class="icon bg-primary" src="assets/img/icons/interface/check.svg" alt="Checkmark icon" data-inject-svg>
+                         <img class="icon bg-primary" src="../assets/img/icons/interface/check.svg" alt="Checkmark icon" data-inject-svg>
                        </div>
                        <span class="font-weight-bold">Receive contribution opportunities</span>
                      </li>
@@ -400,10 +425,10 @@
          </div>
          <div class="decoration-wrapper d-none d-lg-block">
            <div class="decoration top middle-y scale-2" data-jarallax-element="-50 -50">
-             <img class="bg-primary-2" src="assets/img/decorations/deco-dots-3.svg" alt="deco-dots-3 decoration" data-inject-svg>
+             <img class="bg-primary-2" src="../assets/img/decorations/deco-dots-3.svg" alt="deco-dots-3 decoration" data-inject-svg>
            </div>
            <div class="decoration middle-y right scale-2" data-jarallax-element="50 0">
-             <img class="bg-primary" src="assets/img/decorations/deco-dots-3.svg" alt="deco-dots-3 decoration" data-inject-svg>
+             <img class="bg-primary" src="../assets/img/decorations/deco-dots-3.svg" alt="deco-dots-3 decoration" data-inject-svg>
            </div>
          </div>
        </section>
@@ -419,13 +444,13 @@
           <div class="col">
             <ul class="d-flex flex-wrap justify-content-center list-unstyled">
               <li class="mx-4 mb-md-5" data-aos="fade-up" data-aos-delay="100">
-                <img style="height:60px; margin:29px 0; opacity:0.6;" src="assets/img/logo-spei.png" alt="icon">
+                <img style="height:60px; margin:29px 0; opacity:0.6;" src="../assets/img/logo-spei.png" alt="icon">
               </li>
               <li class="mx-4 mb-md-5" data-aos="fade-up" data-aos-delay="200">
-                <img style="height:138px; opacity:0.6;" src="assets/img/logo-innosuisse.png" alt="icon">
+                <img style="height:138px; opacity:0.6;" src="../assets/img/logo-innosuisse.png" alt="icon">
               </li>
               <li class="mx-4 mb-md-5" data-aos="fade-up" data-aos-delay="200">
-                <img style="height:138px; opacity:0.6;" src="assets/img/epfl-logo-bw-border.png" alt="icon">
+                <img style="height:138px; opacity:0.6;" src="../assets/img/epfl-logo-bw-border.png" alt="icon">
               </li>
             </ul>
           </div>
@@ -437,7 +462,7 @@
       <div class="container">
         <div class="row mb-4 justify-content-center">
           <div class="col-auto">
-              <img src="assets/img/logo-white.svg" alt="Condensation" class="icon icon-lg">
+              <img src="../assets/img/logo-white.svg" alt="Condensation" class="icon icon-lg">
           </div>
         </div>
         <div class="row justify-content-center text-center">
@@ -451,57 +476,10 @@
     </footer>
 
     <a href="#" class="btn back-to-top btn-primary btn-round" data-smooth-scroll data-aos="fade-up" data-aos-offset="2000" data-aos-mirror="true" data-aos-once="false">
-      <img class="icon" src="assets/img/icons/theme/navigation/arrow-up.svg" alt="arrow-up icon" data-inject-svg>
+      <img class="icon" src="../assets/img/icons/theme/navigation/arrow-up.svg" alt="arrow-up icon" data-inject-svg>
     </a>
-    <!-- Required vendor scripts (Do not remove) -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
 
-    <!-- Optional Vendor Scripts (Remove the plugin script here and comment initializer script out of index.js if site does not use that feature) -->
-
-    <!-- AOS (Animate On Scroll - animates elements into view while scrolling down) -->
-    <script src="assets/js/aos.js"></script>
-    <!-- Clipboard (copies content from browser into OS clipboard) -->
-    <script src="assets/js/clipboard.min.js"></script>
-    <!-- Fancybox (handles image and video lightbox and galleries) -->
-    <script src="assets/js/jquery.fancybox.min.js"></script>
-    <!-- Flatpickr (calendar/date/time picker UI) -->
-    <script src="assets/js/flatpickr.min.js"></script>
-    <!-- Flickity (handles touch enabled carousels and sliders) -->
-    <script src="assets/js/flickity.pkgd.min.js"></script>
-    <!-- Ion rangeSlider (flexible and pretty range slider elements) -->
-    <script src="assets/js/ion.rangeSlider.min.js"></script>
-    <!-- Isotope (masonry layouts and filtering) -->
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <!-- jarallax (parallax effect and video backgrounds) -->
-    <script src="assets/js/jarallax.min.js"></script>
-    <script src="assets/js/jarallax-video.min.js"></script>
-    <script src="assets/js/jarallax-element.min.js"></script>
-    <!-- jQuery Countdown (displays countdown text to a specified date) -->
-    <script src="assets/js/jquery.countdown.min.js"></script>
-    <!-- jQuery smartWizard facilitates steppable wizard content -->
-    <script src="assets/js/jquery.smartWizard.min.js"></script>
-    <!-- Plyr (unified player for Video, Audio, Vimeo and Youtube) -->
-    <script src="assets/js/plyr.polyfilled.min.js"></script>
-    <!-- Prism (displays formatted code boxes) -->
-    <script src="assets/js/prism.js"></script>
-    <!-- ScrollMonitor (manages events for elements scrolling in and out of view) -->
-    <script src="assets/js/scrollMonitor.js"></script>
-    <!-- Smooth scroll (animation to links in-page)-->
-    <script src="assets/js/smooth-scroll.polyfills.min.js"></script>
-    <!-- SVGInjector (replaces img tags with SVG code to allow easy inclusion of SVGs with the benefit of inheriting colors and styles)-->
-    <script src="assets/js/svg-injector.umd.production.js"></script>
-    <!-- TwitterFetcher (displays a feed of tweets from a specified account)-->
-    <script src="assets/js/twitterFetcher_min.js"></script>
-    <!-- Typed text (animated typing effect)-->
-    <script src="assets/js/typed.min.js"></script>
-    <!-- Required theme scripts (Do not remove) -->
-    <script src="assets/js/theme.js"></script>
-    <!-- Removes page load animation when window is finished loading -->
-    <script>
-      window.addEventListener("load", function () {    document.querySelector('body').classList.add('loaded');  });
-    </script>
+	<? include('../header/vendor-scripts.inc.html') ?>
 
     <script>
 
