@@ -1,0 +1,984 @@
+#! /usr/bin/env node
+'use strict';
+
+// HTML Deploy Script, version 2021-01-04
+// Author: Thomas Lochmatter, thomas.lochmatter@viereck.ch
+// Published under the MIT license
+
+// Load dependencies
+const fs = require('fs');
+const path = require('path');
+const process = require('process');
+const child_process = require('child_process');
+const vm = require('vm');
+
+// Configuration
+var uploadScript = 'deploy-configuration/upload/' + (process.argv[2] || 'default');
+
+// Constants
+var ansi = {
+	reset: String.fromCharCode(0x1b) + '[0m',
+	red: String.fromCharCode(0x1b) + '[0;38;5;196m',
+	orange: String.fromCharCode(0x1b) + '[0;38;5;166m',
+	lightGray: String.fromCharCode(0x1b) + '[0;38;5;249m',
+	mediumGray: String.fromCharCode(0x1b) + '[0;38;5;243m',
+	darkGray: String.fromCharCode(0x1b) + '[0;38;5;237m',
+	blue: String.fromCharCode(0x1b) + '[0;38;5;33m',
+	};
+
+var tagDefinitions = {
+	area: {isEmpty: true},
+	base: {isEmpty: true},
+	br: {isEmpty: true},
+	col: {isEmpty: true},
+	div: {attributes: {'contenteditable': 'boolean'}},
+	embed: {isEmpty: true},
+	hr: {isEmpty: true},
+	html: {attributes: {mozdisallowselectionprint: 'boolean'}},
+	img: {isEmpty: true},
+	input: {isEmpty: true, attributes: {autofocus: 'boolean', disabled: 'boolean', checked: 'boolean', readonly: 'boolean', required: 'boolean', multiple: 'boolean'}},
+	keygen: {isEmpty: true},
+	link: {isEmpty: true},
+	meta: {isEmpty: true},
+	param: {isEmpty: true},
+	script: {attributes: {'async': 'boolean'}},
+	source: {isEmpty: true},
+	span: {attributes: {'contenteditable': 'boolean'}},
+	textarea: {attributes: {autofocus: 'boolean', disabled: 'boolean', readonly: 'boolean', required: 'boolean'}},
+	track: {isEmpty: true},
+	video: {attributes: {controls: 'boolean', loop: 'boolean'}},
+	wbr: {isEmpty: true},
+	};
+
+// Prepare the context prototype
+var contextPrototype = {};
+contextPrototype.logBlue = logBlue;
+contextPrototype.logOrange = logOrange;
+contextPrototype.logLightGray = logLightGray;
+contextPrototype.logMediumGray = logMediumGray;
+contextPrototype.logDarkGray = logDarkGray;
+contextPrototype.logBlack = logBlack;
+contextPrototype.fileWasModified = function(file) { statCache.invalidate(file); };
+contextPrototype.statFile = function(file) { return statCache.stat(file); };
+contextPrototype.fs = fs;
+contextPrototype.process = process;
+contextPrototype.child_process = child_process;
+contextPrototype.path = path;
+contextPrototype.require = require;
+contextPrototype.javaScriptMacros = new Map();
+contextPrototype.javaScriptStringLiteralHandlers = [];
+
+// Run
+var statCache = new StatCache();
+var modifiedFiles = [];
+var rules = new RuleSet();
+var lastFullScan = 0;
+run();
+
+function run() {
+	// Prepare
+	statCache.clear();
+	modifiedFiles = [];
+
+	// Scan the folder for new files every 10 seconds
+	var now = new Date().getTime();
+	if (lastFullScan < now - 10 * 1000) {
+		scanFolder('.');
+		lastFullScan = now;
+	}
+
+	// Execute the rules
+	rules.execute();
+
+	// Upload
+	upload(done);
+
+	function done(exitCode) {
+		if (exitCode == 1) process.exit(0);
+		setTimeout(run, 1000);
+	}
+
+	function scanFolder(folder) {
+		var files = fs.readdirSync(folder);
+		for (var file of files) {
+			if (file.match(/^\./)) continue;
+			var fullPath = path.join(folder, file);
+			var stat = statCache.stat(fullPath);
+			if (stat.isDir) scanFolder(fullPath);
+			else if (stat.isFile) scanFile(fullPath);
+		}
+	}
+
+	function scanFile(file) {
+		if (rules.get(file)) return;
+		if (file.match(/\.inc\.[0-9a-zA-Z]*$/)) return;
+		if (file.match(/\.lib\.[0-9a-zA-Z]*$/)) return;
+		if (file.match(/\.orig$/)) return;
+		if (file.match(/^deploy$/)) return;
+		if (file.match(/^upload-[0-9a-zA-Z]+$/)) return;
+
+		if (checkRule(/\.build\.(html|js|css)$/, runHTMLRule)) return;
+		if (checkRule(/\.translate$/, runTranslationRule)) return;
+		if (checkRule(/\.rule\.js$/, runExternalRule)) return;
+		rules.set(file, createRule(runMarkForUploadRule));
+
+		function checkRule(filter, handler) {
+			var match = file.match(filter);
+			if (! match) return false;
+			rules.set(file, createRule(handler));
+			return true;
+		}
+
+		function createRule(handler) {
+			var rule = {handler: handler, dependencies: {}, file: file};
+			rule.addDependency = function(file) { this.dependencies[file] = statCache.stat(file).mtime; };
+			rule.dependencies[file] = 0;
+			return rule;
+		}
+	}
+}
+
+function RuleSet() {
+	var rules = {};
+
+	this.get = function(name) {
+		return rules[name];
+	};
+
+	this.set = function(name, rule) {
+		rules[name] = rule;
+	};
+
+	this.remove = function(name) {
+		delete rules[name];
+	};
+
+	this.execute = function() {
+		while (executeOnce()) { }
+	};
+
+	function executeOnce() {
+		var hasChanges = false;
+		for (var name in rules)
+			if (executeIfNecessary(name, rules[name])) hasChanges = true;
+		return hasChanges;
+	}
+
+	function executeIfNecessary(name, rule) {
+		for (var file in rule.dependencies) {
+			var mtime = statCache.stat(file).mtime;
+			if (mtime == rule.dependencies[file]) continue;
+
+			// Delete the rule if the file has vanished
+			var mtime = statCache.stat(rule.file).mtime;
+			if (mtime == 0) return delete rules[name];
+
+			// Restart with new dependencies
+			rule.dependencies = {};
+			rule.dependencies[rule.file] = mtime;
+
+			// Execute the handler
+			rule.handler(name, rule);
+			return true;
+		}
+
+		return false;
+	}
+}
+
+function runMarkForUploadRule(name, rule) {
+	modifiedFiles.push(rule.file);
+}
+
+function upload(doneHandler) {
+	if (! modifiedFiles.length) return doneHandler(0);
+
+	var stat = statCache.stat(uploadScript);
+	if (! stat.isFile) {
+		console.log('--');
+		return doneHandler(0);
+	}
+
+	logBlue('Uploading ' + (modifiedFiles.length == 1 ? '1 file' : modifiedFiles.length + ' files'));
+	child_process.spawn('./' + uploadScript, modifiedFiles, {stdio: 'inherit'}).on('close', doneHandler);
+}
+
+function runExternalRule(name, rule) {
+	var code = readTextFileSync(rule.file);
+	if (code == null) return;
+
+	var match = code.match(/^#\!.*?\n(.*)$/s);
+	if (match) code = match[1];
+
+	try {
+		vm.runInContext(code, createDefaultContext({rule: rule}), {filename: rule.file});
+	} catch (e) {
+		logRunError(e);
+	}
+}
+
+function runHTMLRule(name, rule) {
+	// Prepare
+	var output = [];
+	var outputGenerators = [];
+	var tagStack = [];
+	var match = rule.file.match(/^(.*)\.build\.([0-9a-zA-Z]*)$/);
+
+	// Execution environment
+	var context = createDefaultContext({
+		rule: rule,
+		target: match[1] + '.' + match[2],
+		baseFormat: match[2],
+		format: match[2],
+		ids: {},
+		stack: [{indent: '', folder: '.'}],
+		});
+
+	context.use = function(file) {
+		var result = context.readFile(file);
+		if (! result) return;
+		runInContext(result.content, result.state);
+	};
+
+	context.include = function(file, indent) {
+		var result = context.readFile(file);
+		if (! result) return;
+		if (indent) result.state.indent = indent;
+		include(result.content.trim(), result.state);
+	};
+
+	context.insert = function(content) { output.push(addIndent(content, context.stack[context.stack.length - 1].indent)); };
+	context.insertRaw = function(content) { output.push(content); };
+
+	context.insertHtml = function(content, state) {
+		var top = context.stack[context.stack.length - 1];
+		if (! state) state = {indent: top.indent, folder: top.folder, location: {source: 'Generated HTML', lineNumber: 1}};
+		include(content, state);
+	};
+
+	context.insertGenerator = function(generator) {
+		outputGenerators.push({position: output.length, generator: generator});
+	};
+
+	context.require = function(file) {
+		var top = context.stack[context.stack.length - 1];
+		if (file[0] == '.' && file[1] == '/') file = './' + joinPath(top.folder, file);
+		return require(file);
+	};
+
+	context.fullPath = function(file) {
+		var top = context.stack[context.stack.length - 1];
+		return joinPath(top.folder, file);
+	};
+
+	context.readFile = function(file) {
+		// Add the source
+		var top = context.stack[context.stack.length - 1];
+		var fullPath = joinPath(top.folder, file);
+		rule.addDependency(fullPath);
+
+		// Read the file
+		var content = readTextFileSync(fullPath);
+		if (content == null) return;
+		return {
+			content: content,
+			state: {indent: top.indent, folder: path.dirname(fullPath), location: {source: fullPath, lineNumber: 1}},
+			};
+	};
+
+	function addIndent(text, indent) {
+		return indent == '' ? text : text.replace(/\n/g, '\n' + indent);
+	}
+
+	function runInContext(code, state) {
+		context.stack.push(state);
+
+		try {
+			var result = vm.runInContext(code, context, {filename: state.location.source, lineOffset: state.location.lineNumber - 1});
+		} catch (e) {
+			logRunError(e);
+			result = null;
+		}
+
+		context.stack.pop();
+		state.isResult = true;
+		if (result != null && ! code.match(/[;\}]\s*$/))
+			include(result.toString(), state);
+	}
+
+	// Prepare the auto-use functions
+	prepareAutoUse();
+
+	function prepareAutoUse() {
+		try {
+			var autoUseFiles = fs.readdirSync('deploy-configuration/auto-use');
+		} catch (ignore) { return; }
+		for (var file of autoUseFiles) add(file);
+
+		function add(file) {
+			var match = file.match(/^(.*)\.lib\.js$/);
+			if (! match) return;
+			var name = match[1];
+			context[name] = loader;
+
+			function loader() {
+				context[name] = function() { };
+				context.use('/deploy-configuration/auto-use/' + file);
+				context[name](...arguments);
+			}
+		}
+	}
+
+	// Include the file
+	logBlue('Rebuilding ' + context.target);
+	context.include(rule.file, '');
+
+	// Finalize the output
+	for (var i = outputGenerators.length - 1; i >= 0; i--) {
+		var insert = outputGenerators[i];
+		var elements = insert.generator();
+		if (elements) output.splice(insert.position, 0, ...elements);
+	}
+
+	// Write the new file
+	var outputText = output.join('').replace(/[ \t]+\n/g, '\n').replace(/\n\n\n+/g, '\n\n') + '\n';
+	writeTextFileSync(context.target, outputText);
+	return true;
+
+	function include(content, state) {
+		context.stack.push(state);
+
+		// Prepare the output
+		var includedPos = 0;
+
+		// Parser
+		var pos = 0;
+		var cp = content.codePointAt(pos);
+		var startOfLinePos = 0;
+		var startOfLineContentPos = cp == 9 ? -1 : 0;
+		var atTagStart = here();
+
+		function next() {
+			pos += 1;
+			cp = content.codePointAt(pos) || -1;
+			if (cp == 10) {
+				state.location.lineNumber += 1;
+				startOfLinePos = pos + 1;
+				startOfLineContentPos = -1;
+			} else if (cp == 13) {
+				warning(here(), 'Windows line endings (CRLF) found.');
+			} else if (cp != 9 && startOfLineContentPos == -1) {
+				startOfLineContentPos = pos;
+			}
+		};
+
+		// Parse
+		if (context.format == 'value') parseValue();
+		else parseHTML();
+		includeUntil(pos);
+		context.stack.pop();
+
+		function parseHTML() {
+			while (cp != -1) {
+				var before = here();
+				if (context.format == 'js') parseJavaScript();
+				else if (context.format == 'css') parseCSS();
+				else if (eat('<')) parseTag();
+				else if (eat('>')) warning(before, 'Stray ">"');
+				else next();
+			}
+		}
+
+		function parseTag() {
+			atTagStart = here();
+			if (eat('?')) {
+				parseSpecialTag();
+			} else if (eat('!')) {
+				parseDocTypeOrCommentTag();
+			} else if (eat('/')) {
+				parseClosingTag();
+			} else if (isWhiteSpace(cp)) {
+				warning(atTagStart, 'Stray "<"');
+				return;
+			} else {
+				parseNormalTag();
+			}
+		}
+
+		function parseSpecialTag() {
+			includeUntil(pos - 2);
+			skipWhiteSpace();
+
+			var subIndent = currentIndent();
+			var code = readUntil('?>');
+			runInContext(code, {location: atTagStart, indent: subIndent, folder: state.folder});
+
+			includedPos = pos;
+		}
+
+		function currentIndent() {
+			var endPos = startOfLineContentPos == -1 ? pos : startOfLineContentPos;
+			return state.indent + content.substr(startOfLinePos, startOfLineContentPos - startOfLinePos);
+		}
+
+		function parseNormalTag() {
+			var tagName = readXmlWord();
+			var isClosing = false;
+			var tagDefinition = tagDefinitions[tagName] || {};
+			var tagAttributes = tagDefinition.attributes || {};
+			while (cp != -1) {
+				skipWhiteSpace();
+				if (eat('>')) break;
+				var before = here();
+				if (eatText('/>')) {
+					if (tagDefinition.isEmpty) warning(before, 'Closed empty tag <' + tagName + ' />.');
+					isClosing = true;
+					break;
+				}
+
+				var key = readXmlWord();
+				if (key == '') return skipRest('Expecting an argument name.');
+
+				skipWhiteSpace();
+				if (! eat('=')) {
+					if (key.substr(0, 5) == 'data-') continue;
+					if (tagAttributes[key] == 'boolean') continue;
+					return skipRest('Expecting = (EQUAL SIGN).');
+				}
+
+				skipWhiteSpace();
+				var openingQuote = eat('"') ? '"' : eat('\'') ? '\'' : null;
+				if (! openingQuote) return skipRest('Expecting " (QUOTATION MARK) or \' (APOSTROPHE).');
+				if (key == 'id') {
+					var atValueStart = here();
+					addId(parseAndGetArgumentValue(openingQuote), atValueStart);
+				} else {
+					parseArgumentValue(openingQuote);
+				}
+			}
+
+			if (! isClosing && ! tagDefinition.isEmpty && tagStack) tagStack.push(tagName);
+
+			if (tagName == 'script') context.format = 'js';
+			else if (tagName == 'style') context.format = 'css';
+
+			function skipRest(message) {
+				warning(here(), message);
+				readUntil('>');
+			}
+		}
+
+		function parseAndGetArgumentValue(closingQuote) {
+			includeUntil(pos);
+			var startIndex = output.length;
+			parseArgumentValue(closingQuote);
+			includeUntil(pos - 1);
+			return output.slice(startIndex).join('');
+		}
+
+		function parseArgumentValue(closingQuote) {
+			while (cp != -1) {
+				if (eat(closingQuote)) break;
+
+				if (eatText('<?')) {
+					includeUntil(pos - 2);
+					var atStart = here();
+					var code = readUntil('?>');
+					context.format = 'value';
+					runInContext(code, {location: atStart, indent: '', folder: state.folder});
+					context.format = 'html';
+					includedPos = pos;
+				} else {
+					next();
+				}
+			}
+		}
+
+		function parseClosingTag() {
+			var tagName = readUntil('>').trim();
+			closeTag(tagName);
+		}
+
+		function closeTag(tagName) {
+			if (! tagStack) return;
+			var openTagName = tagStack.pop();
+
+			if (openTagName == null) {
+				warning(atTagStart, 'No tag left to close.');
+				tagStack = null;
+			} else if (openTagName != tagName) {
+				warning(atTagStart, 'Wrong closing tag </' + tagName + '>, expecting </' + openTagName + '>.');
+				tagStack = null;
+			}
+		}
+
+		function parseDocTypeOrCommentTag() {
+			if (eatText('--')) {
+				includeUntil(pos - 4);
+				readUntil('-->');
+				includedPos = pos;
+			} else if (eatWord('DOCTYPE')) {
+				readUntil('>');
+			} else {
+				var text = readUntil('>');
+				warning(atTagStart, 'Weird tag <!' + text + '> is probably an error.');
+			}
+		}
+
+		function parseJavaScript() {
+			var isInsideHtml = context.baseFormat == 'html';
+			while (cp != -1) {
+				if (pos == startOfLinePos) includeUntil(pos);
+
+				if (pos == startOfLineContentPos) {
+					if (eatText('INCLUDE')) {
+						includeUntil(pos - 7);
+						var subIndent = currentIndent();
+						var file = readUntil('\n').trim();
+						context.include(file, subIndent);
+						includedPos = pos - 1;
+						continue;
+					}
+				}
+
+				if (isLetter(cp)) {
+					var startPos = pos;
+					var word = readWord();
+					var macro = context.javaScriptMacros.get(word);
+					if (macro) {
+						includeUntil(startPos);
+						var result = macro();
+						if (result) output.push(result);
+						includedPos = pos;
+					}
+				} else if (cp == 34) {
+					next();
+					parseStringLiteral(34);
+				} else if (cp == 39) {
+					next();
+					parseStringLiteral(39);
+				} else if (eatText('//')) {
+					// Keep singleline comments
+					readUntil('\n');
+					continue;
+				} else if (eatText('/*')) {
+					// Remove multiline comments
+					includeUntil(pos - 2);
+					readUntil('*/');
+					includedPos = pos;
+					continue;
+				} else if (isInsideHtml && eatText('</script>')) {
+					context.format = 'html';
+					closeTag('script');
+					break;
+				}
+
+				next();
+			}
+
+			function parseStringLiteral(endCp) {
+				var startPos = pos - 1;
+				var text = '';
+				while (cp != -1 && cp != endCp) {
+					if (cp == 92) next();
+					text += String.fromCharCode(cp);
+					next();
+				}
+
+				for (var handler of context.javaScriptStringLiteralHandlers) {
+					var result = handler(text);
+					if (result == null) continue;
+					includeUntil(startPos);
+					output.push(result);
+					includedPos = pos + 1;
+					return;
+				}
+			}
+		}
+
+		function parseCSS() {
+			var isInsideHtml = context.baseFormat == 'html';
+			while (cp != -1) {
+				if (pos == startOfLineContentPos) {
+					if (eatWord('INCLUDE')) {
+						includeUntil(pos - 7);
+						var subIndent = currentIndent();
+						var file = readUntil('\n').trim();
+						context.include(file, subIndent);
+						includedPos = pos - 1;
+					}
+				}
+
+				if (isInsideHtml && eatText('</style>')) {
+					context.format = 'html';
+					closeTag('style');
+					break;
+				}
+
+				next();
+			}
+		}
+
+		function parseValue() {
+			while (cp != -1) {
+				if (cp == 34) {
+					includeUntil(pos);
+					next();
+					output.push('&quot;');
+					includedPos = pos;
+				} else if (cp == 38) {
+					includeUntil(pos);
+					next();
+					output.push('&amp;');
+					includedPos = pos;
+				} else if (eatText('<?')) {
+					includeUntil(pos - 2);
+					var atStart = here();
+					var code = readUntil('?>');
+					runInContext(code, {location: atStart, indent: '', folder: state.folder});
+					includedPos = pos;
+				} else {
+					next();
+				}
+			}
+		}
+
+		function readUntil(text) {
+			var startPos = pos;
+			var l = text.length;
+			var findCp = text.codePointAt(0);
+			while (cp != -1) {
+				if (cp == findCp && content.substr(pos, l) == text) break;
+				next();
+			}
+			var endPos = pos;
+			while (l > 0) {
+				l--;
+				next();
+			}
+			return content.substr(startPos, endPos - startPos);
+		}
+
+		function readWord() {
+			var startPos = pos;
+			while (isLetter(cp) || isDigit(cp) || cp == 95) next();
+			return content.substr(startPos, pos - startPos);
+		}
+
+		function readXmlWord() {
+			var startPos = pos;
+			while (isLetter(cp) || isDigit(cp) || cp == 58 || cp == 45) next();	// ns:tag-something
+			return content.substr(startPos, pos - startPos);
+		}
+
+		function eat(char) {
+			if (cp != char.charCodeAt(0)) return false;
+			next();
+			return true;
+		}
+
+		function eatText(text) {
+			if (cp != text.charCodeAt(0)) return false;
+			var l = text.length;
+			if (content.length < pos + l) return false;
+			if (content.substr(pos, l) != text) return false;
+			for (var i = 0; i < l; i++) next();
+			return true;
+		}
+
+		function eatWord(text) {
+			if (cp != text.charCodeAt(0)) return false;
+			var l = text.length;
+			if (content.length < pos + l) return false;
+			if (content.substr(pos, l) != text) return false;
+			var nextCp = content.codePointAt(pos + l);
+			if (isDigit(nextCp) || isLetter(nextCp)) return false;
+			for (var i = 0; i < l; i++) next();
+			return true;
+		}
+
+		function includeUntil(pos) {
+			if (pos <= includedPos) return;
+			output.push(addIndent(content.substr(includedPos, pos - includedPos), state.indent));
+			includedPos = pos;
+		}
+
+		function skipWhiteSpace() {
+			while (cp == 32 || cp == 9 || cp == 13 || cp == 10) next();
+		}
+
+		function isLetter(cp) {
+			return (cp >= 65 && cp <= 90) || (cp >= 97 && cp <= 122);
+		}
+
+		function isDigit(cp) {
+			return cp >= 48 && cp <= 57;
+		}
+
+		function isWhiteSpace(cp) {
+			return cp == 32 || cp == 9 || cp == 10 || cp == 13;
+		}
+
+		function here() {
+			return {source: state.location.source, pos: pos, lineNumber: state.location.lineNumber, startOfLinePos: startOfLinePos, startOfLineContentPos: startOfLineContentPos};
+		}
+
+		function warning(location, message) {
+			console.log(ansi.orange + location.source + ':' + location.lineNumber + '  ' + message + ansi.reset);
+			var startPos = location.startOfLineContentPos == -1 ? location.startOfLinePos : location.startOfLineContentPos;
+			var errorMark = pos == location.pos ? ansi.lightGray + ' <<< here' : ansi.red + content.substr(location.pos, pos - location.pos);
+			console.log(ansi.mediumGray + content.substr(startPos, location.pos - startPos) + errorMark + ansi.reset);
+			console.log('');
+		}
+
+		function addId(id, location) {
+			if (context.ids[id]) warning(location, 'Duplicate id "' + id + '"!');
+			context.ids[id] = true;
+		}
+	}
+}
+
+function runTranslationRule(name, rule) {
+	// Start with empty dependencies
+	rule.dependencies = {};
+
+	// Read the translation file
+	var sources = [];
+	var translations = [];
+	readTranslationFile(rule.file);
+	if (! sources.length) return logOrange(rule.file + ' does not mention any source files.');
+	if (! translations.length) return logOrange(rule.file + ' has no translations.');
+
+	function readTranslationFile(file) {
+		rule.addDependency(file);
+		var content = readTextFileSync(file);
+		if (content == null) return;
+
+		var folder = path.dirname(file);
+
+		var lines = content.split(/\n/);
+		var index = 0;
+		var line = lines[0];
+		while (line != null) parse();
+
+		function next() {
+			index += 1;
+			line = lines[index];
+		}
+
+		function parse() {
+			while (line != null && line.match(/^\s*$/)) next();
+			if (line == null) return;
+
+			var sourceMatch = line.match(/^\s*SOURCE\s+(.*?)\s*$/);
+			if (sourceMatch) {
+				var file = joinPath(folder, sourceMatch[1]);
+				var targets = parseBlock();
+				for (var i = 0; i < targets.length; i++)
+					targets[i] = joinPath(folder, targets[i]);
+				sources.push({file: file, targets: targets});
+				return;
+			}
+
+			var includeMatch = line.match(/^\s*INCLUDE\s+(.*?)\s*$/);
+			if (includeMatch) {
+				next();
+				readTranslationFile(joinPath(folder, includeMatch[1]));
+				return;
+			}
+
+			var reMatch = line.match(/^\s*\/(.*?)\/\s*$/);
+			if (reMatch) {
+				translations.push({re: reMatch[1], block: parseBlock()});
+				return;
+			}
+
+			translations.push({exact: possiblyQuotedLine(), block: parseBlock()});
+		}
+
+		function parseBlock() {
+			next();
+			var block = [];
+
+			while (line != null && ! line.match(/^\s*$/)) {
+				block.push(possiblyQuotedLine());
+				next();
+			}
+
+			return block;
+		}
+
+		function possiblyQuotedLine() {
+			var doubleQuotesMatch = line.match(/^\s*"(.*?)"\s*$/);
+			if (doubleQuotesMatch) return doubleQuotesMatch[1];
+			var singleQuotesMatch = line.match(/^\s*'(.*?)'\s*$/);
+			if (singleQuotesMatch) return singleQuotesMatch[1];
+			return line.trim();
+		}
+	}
+
+	// Process all sources
+	for (var i = 0; i < sources.length; i++)
+		processSource(sources[i]);
+
+	function processSource(source) {
+		// Read the source file
+		logBlue('Translating ' + source.file);
+		rule.addDependency(source.file);
+		var content = readTextFileSync(source.file);
+		if (! content) return;
+
+		// Write the translation files
+		for (var i = 0; i < source.targets.length; i++)
+			writeTranslation(content, i, source.targets[i]);
+	}
+
+	function writeTranslation(content, row, file) {
+		for (var n = 0; n < translations.length; n++) {
+			var translation = translations[n];
+			if (row >= translation.block.length) continue;
+			var to = translation.block[row];
+			if (translation.re) translateRe(translation.re, to);
+			else if (translation.exact) translateExact(translation.exact, to);
+		}
+
+		mkdirSyncIfNecessary(path.parse(file).dir);
+		writeTextFileSync(file, content);
+
+		function translateRe(from, to) {
+			try {
+				content = content.replace(new RegExp(from, 'msg'), replaceWithEscape);
+			} catch (e) {
+				logOrange(e.message);
+			}
+
+			function replaceWithEscape() {
+				var args = arguments;
+				return to.replace(/\\(.)/g, escape);
+
+				function escape(match, a) {
+					if (a == 'n') return '\n';
+					if (a == 't') return '\t';
+					var c = a.charCodeAt(0);
+					if (c >= 48 && c <= 57) return args[c - 48];
+					return a;
+				}
+			}
+		}
+
+		function translateExact(from, to) {
+			var pos = 0;
+			while (true) {
+				pos = content.indexOf(from, pos);
+				if (pos < 0) break;
+				content = content.substr(0, pos) + to + content.substr(pos + from.length);
+				pos += to.length;
+			}
+		}
+	}
+}
+
+function joinPath(folder, file) {
+	if (file[0] == '/') return '.' + file;
+	return path.join(folder, file);
+}
+
+function readTextFileSync(file) {
+	try {
+		return fs.readFileSync(file, {encoding: 'utf-8'});
+	} catch (e) {
+		logOrange(file + ' not found.');
+		return null;
+	}
+}
+
+function writeTextFileSync(file, content) {
+	var fd = fs.openSync(file, 'w');
+	fs.writeSync(fd, content);
+	fs.closeSync(fd);
+	statCache.invalidate(file);
+}
+
+function mkdirSyncIfNecessary(folder) {
+	try {
+		fs.mkdirSync(folder, {recursive: true});
+	} catch (e) {}
+}
+
+function StatCache() {
+	var entries = new Map();
+
+	this.stat = function(file) {
+		var entry = entries.get(file);
+		if (entry) return entry;
+
+		try {
+			var stat = fs.statSync(file);
+			entry = {mtime: stat.mtimeMs, isFile: stat.isFile(), isDir: stat.isDirectory()};
+		} catch (e) {
+			entry = {mtime: 0, isFile: false, isDir: false};
+		}
+
+		entries.set(file, entry);
+		return entry;
+	};
+
+	this.invalidate = function(file) {
+		entries.delete(file);
+	};
+
+	this.clear = function() {
+		entries.clear();
+	};
+}
+
+function trimRight(text) {
+	var match = line.match(/^(.*?)\s*$/);
+	return match[1];
+}
+
+function createDefaultContext(fields) {
+	var context = Object.create(contextPrototype);
+	for (var key in fields)
+		context[key] = fields[key];
+	return vm.createContext(context);
+}
+
+function logBlue(message) {
+	console.log(ansi.blue + message + ansi.reset);
+}
+
+function logOrange(message) {
+	console.log(ansi.orange + message + ansi.reset);
+}
+
+function logLightGray(message) {
+	console.log(ansi.mediumGray + message + ansi.reset);
+}
+
+function logMediumGray(message) {
+	console.log(ansi.mediumGray + message + ansi.reset);
+}
+
+function logDarkGray(message) {
+	console.log(ansi.mediumGray + message + ansi.reset);
+}
+
+function logBlack(message) {
+	console.log(message);
+}
+
+function logRunError(e) {
+	var stack = e.stack;
+
+	// Compilation error
+	var compileMatch = stack.match(/^(.*)\s*at new Script \(/s);
+	if (compileMatch) return logOrange(compileMatch[1]);
+
+	// Runtime error
+	var runMatch = stack.match(/^(.*)\s*at Script.runInContext \(/s);
+	if (runMatch) return logOrange(runMatch[1]);
+
+	// Something else
+	logOrange(stack);
+}
