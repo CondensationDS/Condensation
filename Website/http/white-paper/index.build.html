@@ -1,92 +1,24 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
-  <meta charset="utf-8">
-  <title>White paper | Condensation</title>
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
-  <link rel="manifest" href="../assets/favicon/site.webmanifest">
-      
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The most secure database, to build whatever you need.">
-  <link href="../assets/css/loaders/loader-typing.css" rel="stylesheet" type="text/css" media="all" >
-  <link href="../assets/css/theme.css" rel="stylesheet" type="text/css" media="all" >
-  <link rel="preload" as="font" href="../assets/fonts/Inter-UI-upright.var.woff2" type="font/woff2" crossorigin="anonymous">
-  <link rel="preload" as="font" href="../assets/fonts/Inter-UI.var.woff2" type="font/woff2" crossorigin="anonymous">
-      
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-187133960-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+	<? include('../includes/http-header.inc.html') ?>
 
-        gtag('config', 'UA-187133960-1');
-      </script>
+  <title>White paper | CondensationDB</title>
+  <meta name="description" content="White paper | CondensationDB">
 
-      
+  <style>
+      #table1 td {
+      white-space:normal;
+      }
+  </style>
 </head>
-    
-<style>
 
-    #table1 td {
-    white-space:normal;
+<body style="position:relative; max-width:100vw;">
 
-    }
+    <? include('../includes/navbar.inc.html') ?>
 
-</style>
-
-<body style="position:relative; width:100vw; height:100vh;">
-    
-
-    <div class="loader">
-      <div class="loading-animation"></div>
-    </div>
-    
-     <div class="navbar-container">
-         <div style="background-color:var(--primary); text-align:center; font-weight:bold; padding:10px;">
-             <a href="../#subscribe-form" class="hover-arrow text-light">White paper v0 online, get notified for technical specification release</a>
-         </div>
-            <nav class="navbar navbar-expand-lg justify-content-between navbar-light border-bottom-0 bg-white" data-sticky="top">
-
-                
-                <div class="container">
-                    <div class="col flex-fill px-0 d-flex justify-content-between">
-                        <a href="../"><img src="../assets/img/logo.svg" style="max-height:40px;" alt="Condensation"></a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                                <img class="icon navbar-toggler-open" src="../assets/img/icons/interface/menu.svg" alt="menu interface icon" data-inject-svg>
-                                    <img class="icon navbar-toggler-close" src="../assets/img/icons/interface/cross.svg" alt="cross interface icon" data-inject-svg>
-                                        </button>
-                            </div>
-                    <div class="flex-fill"></div>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="../how-it-works" class="nav-link">How it works</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../about-us" class="nav-link">Who we are</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../newsroom" class="nav-link">What's new</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <a id="banner-primary-button" href="https://github.com/condensationdb/condensation" class="btn btn-primary ml-lg-2 pl-2" target="_blank" style="white-space:nowrap;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24" class="injected-svg icon pl-0" data-src="assets/img/icons/social/github.svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-                    View on GitHub</a>
-
-                </div>
-            </nav>
-        </div>
-
-    
     <section class="bg-primary-3 has-divider text-light">
 
           <div class="container text-center pb-md-0">
@@ -106,7 +38,7 @@
               </video>
               <figcaption>Condensation extends the Cloud with distributed storage servers</figcaption>
             </figure>
-                        
+
           </div>
           <div class="divider d-none d-md-block">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="96px" viewBox="0 0 100 100" version="1.1" preserveAspectRatio="none" class="injected-svg" data-src="../assets/img/dividers/divider-2.svg">
@@ -128,11 +60,11 @@
                 <p>
                 Condensation builds the bridge between the simplicity of immutable data and the easiness of implementation of mutable documents. On the client, documents are split efficiently into smaller immutable units that can be transferred freely across the network. Then, they can be condensed back when they arrive on the receiver's device. Condensed systems are free from trusting a third-party server and many new features come by design to create trust between clients such as data certification.
                 </p>
-                
+
                 <p>
                 This shift from merging data on the server to doing it on the client side, opens many new possibilities for application design. Furthermore, it is significantly more efficient if compared to existing solutions which need to build several application layers on top of existing systems to achieve the same functionalities. Before to start explaining the mechanics, this section explains the history of databases and what makes Condensation the next step in the evolution of databases.
                 </p>
-                
+
                 <h3 class="my-4">Bridging the gap between mutable and immutable data structures</h3>
                     <p>
                     The structure of today's file and database systems dates back to the 1970s, when storage space was extremely scarce and computers were few. These systems were designed to run on a single machine, and mostly on a single disk.
@@ -143,14 +75,14 @@
                     <p>
                     In todays' connected world, data is used on different devices, or is shared with other people. And, for most applications, storage space is not a limiting factor any more. Hence, efficient data synchronization is key.
                     </p>
-                    
+
                     <figure>
-                      
+
                       <img src="../assets/img/historic-evolution.png" alt="Image" class="rounded">
-                          
+
                       <figcaption>A historical evolution of data systems</figcaption>
                     </figure>
-                    
+
                     <p>
                     Aside of file and database systems, revision control systems have been developed and used since the 1980s. Some of them, such as git or hq, are fully distributed and do not require any central server whatsoever. Each user has their own version of the data and can merge changes from other users. Such systems allow for efficient and provably correct data synchronization.
                     </p>
@@ -160,11 +92,11 @@
                     <p>
                     Condensation has been designed from the ground up to address this. The result is a general-purpose data system with lightweight transactions and efficient data synchronization in a completely distributed setting. Merge conflicts are impossible by design, hence no user intervention is required during the synchronization process. The data itself is end-to-end encrypted and may be spread across multiple storage systems.
                     </p>
-                    
-                    
+
+
                     <h3 class="my-4">The evolution of architectures from online to offline and serverless systems.</h3>
-                    
-                    
+
+
                     <p>
                     The structure of the data has a direct influence on the dependency from and the role of a server. With SQL and noSQL databases, the centralized server is needed to synchronize data. Accordingly, it is the place where the application logic occurs. As a result, the system only works when being online. Also, as the data is read and processes by the server, it is vulnerable to data breaches.
                     </p>
@@ -292,7 +224,7 @@
                                         Login not necessary (but sometimes desired)
                                       </td>
                                     </tr>
-                                   
+
                                   </tbody>
                                 </table>
                     </figure>
@@ -309,117 +241,43 @@
                 <p>
                 In the following sections, first the data structure is technically described to explain how Condensation transform a document into an immutable merkle tree. Next, to better understand how Condensation manage securely data on the network, the flow of the data through a decentralized network will be described.
                 </p>
-                                            
+
                 </article>
-              
-                                      
+
+
                       </div>
                     </div>
                   </div>
                 </section>
-              
+
               <section style="margin-top:30px; text-align:center;">
-                  
+
                   <div class="ph-5 text-light" style="padding:90px 20vw; background-color:var(--primary);">
                       <h2>Data structure technical specifications</h2>
                       Learn more about how Condensation transform a database document into an immutable Merkle tree.<br><br>
                       <a href="https://condensation.io/overview/objects/" class="hover-arrow">coming soon, first notes available here</a>
-                      
+
                   </div>
-                  
+
                   <div class="ph-5 text-light" style="margin-top:30px; padding:90px 20vw; background-color:var(--primary-2);">
                       <h2>Data flow technical specifications</h2>
                       Learn more about how Condensation send data. From creating an actor with his key pairs, creating a store, and passing data using envelopes.<br><br>
                       <a href="https://condensation.io/overview/actors/" class="hover-arrow">coming soon, first notes available here</a>
                   </div>
-                  
+
                   <div style="text-align:center; margin-top:90px;">
                       <a href="../#subscribe-form" class="h2 hover-arrow">Technical specifications are coming by the next weeks, <br>subscribe to get notified</a>
                   </div>
-                  
+
               </section>
-              
 
+              <? include('/includes/http-footer.inc.html') ?>
 
-              <footer class="pb-5 bg-primary-3 text-light">
-                <div class="container" style="flex-direction: column;">
-                  <div class="row mb-4 justify-content-center">
-                    <div class="col-auto">
-                        <a href="../">
-                            <img src="../assets/img/logo-white.svg" alt="Condensation" class="icon icon-lg">
-                        </a>
-                    </div>
-                  </div>
-                  <div class="row justify-content-center text-center">
-                    <div class="col-xl-10">
-              <small class="text-muted">Condensation &copy;2021 All Rights Reserved. <a href="mailto:info@condensationDB.com" class="hover-arrow">Get in touch</a></small>          </div>
-                  </div>
-                </div>
-                <div style="height:60px;">
-                </div>
-              </footer>
+              <a href="#" class="btn back-to-top btn-primary btn-round" data-smooth-scroll data-aos="fade-up" data-aos-offset="2000" data-aos-mirror="true" data-aos-once="false">
+                <img class="icon" src="../assets/img/icons/theme/navigation/arrow-up.svg" alt="arrow-up icon" data-inject-svg>
+              </a>
 
- 
-      <!-- Required vendor scripts (Do not remove) -->
-      <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
-      <script type="text/javascript" src="../assets/js/popper.min.js"></script>
-      <script type="text/javascript" src="../assets/js/bootstrap.js"></script>
-
-      <!-- Optional Vendor Scripts (Remove the plugin script here and comment initializer script out of index.js if site does not use that feature) -->
-      
-      <!-- AOS (Animate On Scroll - animates elements into view while scrolling down) -->
-      <script type="text/javascript" src="../assets/js/aos.js"></script>
-      <!-- Clipboard (copies content from browser into OS clipboard) -->
-      <script type="text/javascript" src="../assets/js/clipboard.min.js"></script>
-      <!-- Fancybox (handles image and video lightbox and galleries) -->
-      <script type="text/javascript" src="../assets/js/jquery.fancybox.min.js"></script>
-      <!-- Flatpickr (calendar/date/time picker UI) -->
-      <script type="text/javascript" src="../assets/js/flatpickr.min.js"></script>
-      <!-- Flickity (handles touch enabled carousels and sliders) -->
-      <script type="text/javascript" src="../assets/js/flickity.pkgd.min.js"></script>
-      <!-- Ion rangeSlider (flexible and pretty range slider elements) -->
-      <script type="text/javascript" src="../assets/js/ion.rangeSlider.min.js"></script>
-      <!-- Isotope (masonry layouts and filtering) -->
-      <script type="text/javascript" src="../assets/js/isotope.pkgd.min.js"></script>
-      <!-- jarallax (parallax effect and video backgrounds) -->
-      <script type="text/javascript" src="../assets/js/jarallax.min.js"></script>
-      <script type="text/javascript" src="../assets/js/jarallax-video.min.js"></script>
-      <script type="text/javascript" src="../assets/js/jarallax-element.min.js"></script>
-      <!-- jQuery Countdown (displays countdown text to a specified date) -->
-      <script type="text/javascript" src="../assets/js/jquery.countdown.min.js"></script>
-      <!-- jQuery smartWizard facilitates steppable wizard content -->
-      <script type="text/javascript" src="../assets/js/jquery.smartWizard.min.js"></script>
-      <!-- Plyr (unified player for Video, Audio, Vimeo and Youtube) -->
-      <script type="text/javascript" src="../assets/js/plyr.polyfilled.min.js"></script>
-      <!-- Prism (displays formatted code boxes) -->
-      <script type="text/javascript" src="../assets/js/prism.js"></script>
-      <!-- ScrollMonitor (manages events for elements scrolling in and out of view) -->
-      <script type="text/javascript" src="../assets/js/scrollMonitor.js"></script>
-      <!-- Smooth scroll (animation to links in-page)-->
-      <script type="text/javascript" src="../assets/js/smooth-scroll.polyfills.min.js"></script>
-      <!-- Typed text (animated typing effect)-->
-      <script type="text/javascript" src="../assets/js/typed.min.js"></script>
-      <!-- Required theme scripts (Do not remove) -->
-      <script type="text/javascript" src="../assets/js/theme.js"></script>
-      <!-- Removes page load animation when window is finished loading -->
-      <script>
-        window.addEventListener("load", function () {
-            document.querySelector('body').classList.add('loaded');
-            /*
-                var options = {
-                  strings: ["Traditionnal systems are synchronized through a centralized cloud server."],
-                  typeSpeed: 40,
-                }
-                var typed = new Typed("#title1", options);
-      */
-        });
-      
-      
-      </script>
-      
-      <script type="text/javascript">
-
-      </script>
+              <? include('/includes/vendor-scripts.inc.html') ?>
 
 </body>
 </html>

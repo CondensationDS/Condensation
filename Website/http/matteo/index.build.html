@@ -3,8 +3,8 @@
 <html lang="en">
 
 <head>
-	<? include('../header/http-header.inc.html') ?>
-
+	<? include('../includes/http-header.inc.html') ?>
+  
 	<title>About us | Condensation</title>
 	<meta name="description" content="The most secure database, to build whatever you need.">
 </head>
@@ -16,7 +16,7 @@
 	Le contenu du fichier est inséré ici lorsqu'on publie la page, et pas lorsque l'utilisateur charge la page.
 	Ceci est en général mieux, car ça évite de charger des fichiers supplémentaires.
 	-->
-	<? include('../header/navbar.inc.html') ?>
+	<? include('../includes/navbar.inc.html') ?>
 
 	<!--
 	Avec svgFile, on peut inclure un fichier *.svg directement dans le code HTML.
@@ -458,28 +458,13 @@
       </div>
     </section>
 
-    <footer class="pb-5 bg-primary-3 text-light">
-      <div class="container">
-        <div class="row mb-4 justify-content-center">
-          <div class="col-auto">
-              <img src="../assets/img/logo-white.svg" alt="Condensation" class="icon icon-lg">
-          </div>
-        </div>
-        <div class="row justify-content-center text-center">
-          <div class="col-xl-10">
-            <small class="text-muted">Condensation &copy;2021 All Rights Reserved. <a href="mailto:info@condensationDB.com" class="hover-arrow">Get in touch</a></small>
-          </div>
-        </div>
-      </div>
-      <div style="height:60px;">
-      </div>
-    </footer>
+    <? include('../includes/http-footer.inc.html') ?>
 
     <a href="#" class="btn back-to-top btn-primary btn-round" data-smooth-scroll data-aos="fade-up" data-aos-offset="2000" data-aos-mirror="true" data-aos-once="false">
       <img class="icon" src="../assets/img/icons/theme/navigation/arrow-up.svg" alt="arrow-up icon" data-inject-svg>
     </a>
 
-	<? include('../header/vendor-scripts.inc.html') ?>
+	<? include('../includes/vendor-scripts.inc.html') ?>
 
     <script>
 
