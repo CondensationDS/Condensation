@@ -1,3 +1,0 @@
-#! /bin/sh
-
-rsync -avL --delete --exclude '*.inc*' --exclude '*.lib*' --exclude '*.build*' --exclude '*.orig' --exclude 'deploy*' . alex@condensationdb.com:/srv/data/condensationdb.com/http
