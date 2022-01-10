@@ -1,4 +1,4 @@
-![](/Images/GitHub-Banner.png)
+![](/Images/GitHub-banner.png)
 
 # A tool to build distributed applications with data ownership
 
