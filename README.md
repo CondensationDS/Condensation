@@ -54,13 +54,13 @@ Condensation allows to use clouds as just data storage. In this set up, data rem
 ### Providing a tool for building collaborative & conflict-free applications
 
 <p align="center">
-  <img align="left" src="/Images/onlylogosVersion.jpeg" alt="version control" width="130"/>
+  <img align="left" src="/Images/onlylogosVersion.jpg" alt="version control" width="130"/>
 </p>
 </br>
 On one side, even if they are great for source code management, current revision control systems are not suited as general purpose data systems. In order to benefit from such tools, the user needs to have a minimal understanding of branches, merging and conflict resolution, which is far beyond the knowledge of an average computer user.</br></br>
 
 <p align="center">
-  <img align="right" src="/Images/onlylogosCollab.jpeg" alt="collaborative" width="130"/>
+  <img align="right" src="/Images/onlylogosCollab.jpg" alt="collaborative" width="130"/>
 </p>
 On the other side, collaborative applications for all still present several drawbacks, for now difficult to overcome. These tools can hardly work offline, because they need to permanently synchronize with a central version that is found on the cloud. Moreover the document size on which users can collaborate is limited by the transport on the network. Documents need to be shared entirely to be compared, which also increases importantly the latency in transport and processing.</br></br>
 
