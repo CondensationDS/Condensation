@@ -94,11 +94,11 @@ With Condensation users do not need to share entire documents to synchronize, bu
 </p> 
 6. Condensation secret sauce is a very <b>performant merge</b> algorithm, based on join-semilattice, allowing efficient and <b>conflict-free</b> synchronization without any data loss. </br>
 
-## Getting starded 
+## Getting started 
 Condensation Java implementation is stable but we are still packaging it, preparing instructions for the installation, and building the first tutorials. The most advanced developers can already get into the code with the following link.
-[Source code](https://github.com/CondensationDB/Condensation/tree/main/Get-the-code)
+[Source code](https://github.com/CondensationDS/Condensation/tree/main/Get-the-code)
 
-Do not hesitate to contact us for a POC at community@condensationDB.com. We would be very happy to collaborate with you. 
+Do not hesitate to contact us for a POC at info@condensation.io. We would be very happy to collaborate with you. 
 
 ## Contribute 
 
@@ -114,9 +114,8 @@ We are actively developing Condensation, if you want to invest, to contribute or
 
 ## Main links
 
-- [Condensation website](https://condensationdb.com/)
 - [Condensation documentation](https://condensation.io/)
-- [Get the code](https://github.com/CondensationDB/Condensation/tree/main/Get-the-code)
+- [Get the code](https://github.com/CondensationDS/Condensation/tree/main/Get-the-code)
 
 ## Who we are 
 ### The team 
@@ -124,9 +123,10 @@ We are actively developing Condensation, if you want to invest, to contribute or
 Thomas Lochmatter, PhD, Teacher at EPFL [meet him](https://viereck.ch/thomas/)
 
 **Early contributors** :
-- Alex Mouradian, project coordination
-- Zafar Ansari, infrastructure and development lead
-- Lou Locci, education and content management
+- Alex Mouradian : Project coordination
+- Lou Locci : education and content management
+- Zafar Ansari : infrastructure and development lead
+
 ### Many thanks to our sponsors 
 - [SPEI](https://www.vd.ch/toutes-les-autorites/departements/departement-de-leconomie-de-linnovation-et-du-sport-deis/service-de-la-promotion-de-leconomie-et-de-linnovation-spei/)
 - [Innossuisse](https://www.innosuisse.ch/inno/fr/home.html)
