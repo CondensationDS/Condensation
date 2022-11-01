@@ -124,8 +124,9 @@ Thomas Lochmatter, PhD, Teacher at EPFL [meet him](https://viereck.ch/thomas/)
 
 **Early contributors** :
 - Alex Mouradian : Project coordination
-- Lou Locci : education and content management
-- Zafar Ansari : infrastructure and development lead
+- Thomas Souksouvanh : Responsible of application developement
+- Lou Locci : Education and content management
+- Zafar Ansari : Infrastructure and development lead
 
 ### Many thanks to our sponsors 
 - [SPEI](https://www.vd.ch/toutes-les-autorites/departements/departement-de-leconomie-de-linnovation-et-du-sport-deis/service-de-la-promotion-de-leconomie-et-de-linnovation-spei/)
